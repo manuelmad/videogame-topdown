@@ -370,9 +370,12 @@ function levelWin() {
 				audio_level_win.currentTime = 0;
 
 				notifications.innerText = "";
-
-				//startLevel2(80**2, 140**2, 100**2);
-				startLevel2(80, 140, 100);
+				if(sublevel == 1) {
+					startLevel2(80, 140, 100);
+				} else if(sublevel == 2) {
+					startLevel3(80, 140, 100);
+				}
+				//startLevel2(80, 140, 100);
 			}, 2000);
 
 		} else {
@@ -1545,6 +1548,10 @@ function startGame(timeIntervalHeroe, timeIntervalEnemy1, timeIntervalEnemy2) {
 //let first_start = true;
 const start_button = document.getElementById("start_btn");
 start_button.addEventListener('click', ()=> {
+	clearInterval(characterMove);
+	clearInterval(enemy1Move);
+	clearInterval(enemy2Move);
+
 	ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 	collision = false;
 	collision2 = false;
@@ -1560,12 +1567,17 @@ start_button.addEventListener('click', ()=> {
 	positionXenemy = 200;
 	positionYenemy = 518;
 	borderPosition = 'left';
+	enemyLeftLimit = 200;
+	enemyRightLimit = 370;
+	
 
 	// Reiniciar enemigo 2
 	animationIndexEnemy2 = 0;
 	positionXenemy2 = 300;
 	positionYenemy2 = 0;
 	borderPosition2 = 'up';
+	enemy2UpLimit = 0;
+	enemy2DownLimit = 277.8;
 
 	// Reinicio la parte de la nave en el mapa
 	posXship = 30;
@@ -1764,8 +1776,8 @@ function startLevel2(timeIntervalHeroe, timeIntervalEnemy1, timeIntervalEnemy2) 
 
     // Renderizar Héroe
     animationIndex = 0;
-    positionX = canvasWidth-characterWidth;
-    positionY = 10;
+    // positionX = canvasWidth-characterWidth;
+    // positionY = 10;
 
 	ctx.drawImage(sprite, framesWalking["down"][animationIndex].x, framesWalking["down"][animationIndex].y, framesWalking["down"][animationIndex].width, framesWalking["down"][animationIndex].height, positionX, positionY, characterWidth, characterHeight);
 
@@ -1897,5 +1909,230 @@ function explosionsActivator() {
 
 			}, 3000);
 		}
+	}
+}
+
+
+/* NIVEL 3 */
+
+const layout3 = () => {
+	// Suelo marrón cubre todo el canvas
+	for(let i = 0; i <= canvasHeight; i=i+20) {
+		renderBackground(backgroundTiles, 0, 0, i, 20, 20);
+		for(let j = 0; j <= canvasWidth; j=j+20) {
+			renderBackground(backgroundTiles, 0, j, i, 20, 20);
+		}
+	}
+
+	// Marcas de arena
+	renderBackground(backgroundTiles, 1, canvasWidth/2, canvasHeight/5, 30, 30);
+	renderBackground(backgroundTiles, 1, canvasWidth/3, canvasHeight/3, 30, 30);
+	renderBackground(backgroundTiles, 1, canvasWidth/5, canvasHeight/15, 30, 30);
+	renderBackground(backgroundTiles, 1, canvasWidth/13, canvasHeight/5, 30, 30);
+	renderBackground(backgroundTiles, 1, canvasWidth/1.1, canvasHeight/1.5, 30, 30);
+	renderBackground(backgroundTiles, 1, canvasWidth/7, canvasHeight/1.3, 30, 30);
+	renderBackground(backgroundTiles, 1, canvasWidth/2, canvasHeight/1.1, 30, 30);
+	renderBackground(backgroundTiles, 1, canvasWidth/1.5, canvasHeight/2, 30, 30);
+	renderBackground(backgroundTiles, 1, canvasWidth/4, canvasHeight/1.7, 30, 30);
+
+	// Rocas grises
+	renderBackground(backgroundTiles, 2, canvasWidth/5, canvasHeight/4, 30, 30);
+	renderBackground(backgroundTiles, 2, canvasWidth/1.7, canvasHeight/1.5, 30, 30);
+	renderBackground(backgroundTiles, 2, canvasWidth/1.2, canvasHeight/7, 30, 30);
+	renderBackground(backgroundTiles, 2, canvasWidth/1.1, canvasHeight/1.2, 30, 30);
+	renderBackground(backgroundTiles, 2, canvasWidth/30, canvasHeight/1.7, 30, 30);
+
+	/* Paredes */
+	// Horizontales
+	// renderWalls(walls3Dtiles, 5, 0, 307, 32, 32);
+	// for(let i = 32; i <= canvasWidth-108; i=i+32) {
+	// 	renderWalls(walls3Dtiles, 3, i, 307, 32, 32);
+	// }
+	// renderWalls(walls3Dtiles, 4, 592, 307, 32, 32);
+
+	// renderWalls(walls3Dtiles, 5, 361, 145, 32, 32);
+	// for(let i = 377; i <= canvasWidth-108; i=i+32) {
+	// 	renderWalls(walls3Dtiles, 3, i, 145, 32, 32);
+	// }
+	// renderWalls(walls3Dtiles, 4, canvasWidth-108, 145, 32, 32);
+
+	// renderWalls(walls3Dtiles, 5, 84, 145, 32, 32);
+	// for(let i = 100; i <= 240; i=i+32) {
+	// 	renderWalls(walls3Dtiles, 3, i, 145, 32, 32);
+	// }
+	// renderWalls(walls3Dtiles, 4, 240, 145, 32, 32);
+
+
+	// Verticales
+	// renderWalls(walls3Dtiles, 2, 70, 416, 32, 32);
+	// for(let i = 430; i <= canvasHeight-32; i=i+32) {
+	// 	renderWalls(walls3Dtiles, 1, 70, i, 32, 32);
+	// }
+	// renderWalls(walls3Dtiles, 0, 70, canvasHeight-32, 32, 32);
+
+
+	// for(let i = 330; i <= canvasHeight-100; i=i+32) {
+	// 	renderWalls(walls3Dtiles, 1, 170, i, 32, 32);
+	// }
+	// renderWalls(walls3Dtiles, 0, 170, canvasHeight-100, 32, 32);
+
+	// renderWalls(walls3Dtiles, 2, 270, 398, 32, 32);
+	// for(let i = 430; i <= 490; i=i+32) {
+	// 	renderWalls(walls3Dtiles, 1, 270, i, 32, 32);
+	// }
+	// renderWalls(walls3Dtiles, 0, 270, 490, 32, 32);
+
+	// renderWalls(walls3Dtiles, 2, 270, 570, 32, 32);
+	// for(let i = 602; i <= canvasHeight-32; i=i+32) {
+	// 	renderWalls(walls3Dtiles, 1, 270, i, 32, 32);
+	// }
+	// renderWalls(walls3Dtiles, 0, 270, canvasHeight-32, 32, 32);
+
+
+	// for(let i = 330; i <= canvasHeight-100; i=i+32) {
+	// 	renderWalls(walls3Dtiles, 1, 370, i, 32, 32);
+	// }
+	// renderWalls(walls3Dtiles, 0, 370, canvasHeight-100, 32, 32);
+
+	// Cápsula
+	// xCapsule = canvasWidth-65;
+	// yCapsule = 10;
+	// widthCapsule = 55;
+	// heightCapsule = 106;
+	// renderCapsule(capsuleSprites, 0, xCapsule, yCapsule, widthCapsule, heightCapsule);
+}
+
+
+// Array con la información de todas las paredes del nivel 3
+const walls3 = [
+	// Horizontales
+	wall_h1 = {
+		x: 361,
+		y: 145,
+		width: 339,
+		height: 32
+	},
+	wall_h2 = {
+		x: 100,
+		y: 400,
+		width: 382,
+		height: 32
+	},
+	wall_h3 = {
+		x: 100,
+		y: 550,
+		width: 252,
+		height: 32
+	},
+	wall_h4 = {
+		x: 424,
+		y: 550,
+		width: 208,
+		height: 32
+	},
+	wall_v1 = {
+		x: 100,
+		y: 0,
+		width: 32,
+		height: 550
+	},
+	wall_v2 = {
+		x: 452,
+		y: 250,
+		width: 32,
+		height: 118
+	},
+	wall_v3 = {
+		x: 600,
+		y: 250,
+		width: 32,
+		height: 118
+	},
+	wall_v4 = {
+		x: 600,
+		y: 432,
+		width: 32,
+		height: 118
+	}
+];
+
+/* NAVE */
+const part3 = document.createElement('img');
+part3.src = '../assets/imgs/ship1/parts/ship1_nose.png';
+
+
+function startLevel3(timeIntervalHeroe, timeIntervalEnemy1, timeIntervalEnemy2) {
+	
+	level_p.innerHTML = sublevel+1;
+
+	level_1_completed = false;
+	posXship = 15;
+	posYship = canvasHeight-60;
+
+	shipWidth = (ships[level].parts[sublevel].width)*1.1;
+	shipHeight = (ships[level].parts[sublevel].height)*1.1;
+
+	partTaken = false;
+
+	// Posición inicial del héroe sobre el canvas
+	positionX = 10;
+	positionY = 10;
+
+    // Reproducir sonido cuando inicia el juego
+    if(!audio_active) {
+        audio_active = true;
+        audio_background.play();
+        audio_background.loop = true;
+        audio_background.volume = 0.2;
+    }
+    // Renderizar mapa
+    layout3();
+
+    // Renderizar parte de nave
+	shipPart(posXship, posYship);
+	shipPartDisappear();
+	levelWin();
+
+    // Renderizar Héroe
+    animationIndex = 0;
+    // positionX = 10;
+    // positionY = 10;
+
+	ctx.drawImage(sprite, framesWalking["down"][animationIndex].x, framesWalking["down"][animationIndex].y, framesWalking["down"][animationIndex].width, framesWalking["down"][animationIndex].height, positionX, positionY, characterWidth, characterHeight);
+
+	characterMove = setInterval(moveCharacter, timeIntervalHeroe);
+
+    // Renderizar Enemigo
+    animationIndexEnemy = 0;
+	movePixelsenemy = 15;
+
+    positionXenemy = 484;
+    positionYenemy = 368;
+    borderPosition = 'left';
+
+	enemyLeftLimit = 484;
+	enemyRightLimit = 690;
+
+	ctx.drawImage(framesEnemy[animationIndexEnemy], positionXenemy, positionYenemy, enemyWidth, enemyHeight);
+
+	enemy1Move = setInterval(moveRightenemy, timeIntervalEnemy1);
+
+	// Renderizar Enemigo 2
+	animationIndexEnemy2 = 0;
+	movePixelsenemy2 = 18;
+
+    positionXenemy2 = 366;
+    positionYenemy2 = 432;
+    borderPosition2 = 'up';
+
+	enemy2UpLimit = 432;
+	enemy2DownLimit = 690;
+	ctx.drawImage(framesEnemy2[animationIndexEnemy2], positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
+
+	enemy2Move = setInterval(moveDownEnemy, timeIntervalEnemy2);
+
+    // Detener renederizado si hubo colisión
+	if(collision || collision2 || level_1_completed || exploded) {
+		return;
 	}
 }
