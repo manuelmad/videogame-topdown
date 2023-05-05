@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Aplicación web para Videojuego de PlanetaGeek.">
+	<meta name= "robots" content= "index, follow">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Chivo+Mono:wght@300;500;700&display=swap" rel="stylesheet">
+	<title>Vieojuego de PlanetaGeek</title>
+	<link rel="stylesheet" href="./style.css">
+	<link rel="stylesheet" href="./styles-tablet.css" type="text/css" media="screen and (min-width: 700px)">
+	<link rel="stylesheet" href="./styles-desktop.css" type="text/css" media="screen and (min-width: 1024px)">
+</head>
+<body>
+	<main>
+		<section class="game-container">
+			<article>
+				<div class="canvas-container">
+					<canvas id="canvas"></canvas>
+					<p class="videogame-word">VIDEOGAME</p>
+				</div>
+			</article>
+			<article class="game-info_container">
+				<div>
+					<!-- <div class="controls-container">
+					<h2>CONTROLES</h2>
+					<p class="btn-up">
+						<button id="btn_up"></button>
+					</p>
+					<p class="btn-left btn-right">
+						<button id="btn_left"></button> <button id="btn_right"></button>
+					</p>
+					<p>
+						<button id="btn_down"></button>
+					</p>
+					</div> -->
+					<div class="history-container">
+						<p>¡Ayuda a nuestro héroe a volver a su planeta de origen!</p>
+						<p>Su vehículo espacial ha sufrido daños mientras volaba a través de una nube de asteroides y tuvo que realizar un aterrizaje de emergencia en un planeta desconocido.</p>
+						<p>Ayúdalo a explorar, evita los peligros y consigue objetos que te permitan restaurar el funcionamiento de la nave.</p>
+						<p class="start-btn__container">
+							<button id="start_btn">Iniciar partida</button>
+						</p>
+					</div>
+					<div class="game-info">
+						<p>Nivel: <span id="level"></span></p>
+						<p class="parts-container"><span>Partes obtenidas:</span><span id="ship_parts"></span></p>
+						<p><span class="notifications-title">Notificaciones:</span> <span id="notifications"></span></p>
+					</div>
+				</div>
+			</article>
+		</section>
+	</main>
+	<!-- <p>
+		<button id="btnUp"></button>
+	</p> -->
+	<script type="text/javascript" src="./src/maps.js"></script>
+	<script type="text/javascript" src="./src/ships.js"></script>
+	<!-- <script type="text/javascript" src="./src/enemy2.js"></script> -->
+	<!-- <script type="module" src="./src/layout.js"></script> -->
+	<script type="text/javascript" src="./src/index.js"></script>
+	<script src=""></script>
+	<script></script>
+</body>
+</html>

@@ -1,0 +1,202 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+@font-face {
+    font-family: superMarioBros;
+    src: url('./assets/fonts/Super-Mario-Bros--3.ttf');
+ }
+
+html {
+    font-size: 62.5%;
+    font-family: 'Black Ops One', cursive;
+    font-family: 'Chivo Mono', monospace;
+}
+
+:root {
+    --white: #FFFFFF;
+    --black: #000000;
+    --header-font-color: rgb(117, 105, 105);
+    --nav-left-borders: rgb(24, 24, 24);
+    --background-black: #282828;
+    --background-nav: rgb(40, 40, 40);
+    --background-article: #292e38;
+    --background-sections: #181c23;
+    --planeta-geek-celeste: #03fbfa;
+    --planeta-geek-shadow-celeste: #2e6e70;
+    --planeta-geek-celeste-border: #5fe1e8;
+    --red-notifications: #c40d24;
+    --launches-fucsia: #fe009d;
+    --fucsia-shadow: #BF0076;
+    --palid-red: #42041a;
+    --vivid-red: #cf2e2e;
+    --planeta-geek-yellow: #FBFA03;
+    --planeta-geek-purple: #7E03FB;
+    --purple-shadow: #5F02BC;
+    --planeta-geek-green: #80FB03;
+    --planeta-geek-blue: #0304FB;
+    --planeta-geek-blue-shadow: #0203BC;
+    --ss: 1.2rem;
+    --sm: 1.4rem;
+    --md: 1.5rem;
+    --lg: 1.8rem;
+    --xlg: 2.2rem
+}
+
+body {
+    width: 100%;
+    /* background-color: var(--background-article); */
+    background-image: url('./assets//imgs/backgrounds/space.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+main {
+    width: 100%;
+}
+
+.canvas-container {
+    position: relative;
+    text-align: center;
+    padding: 0.8rem;
+    background-image: url('./assets//imgs//backgrounds/logo.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+
+/* canvas {
+    border: 0.2rem solid black;
+    background-color: var(--palid-red);
+    border: 0.2rem solid var(--planeta-geek-celeste);
+} */
+
+.videogame-word {
+    position: absolute;
+    font-family: superMarioBros;
+    width: 70rem;
+    font-size: 4rem;
+    color: var(--white);
+    top: 75%;
+    left: calc(50% - 35rem);
+    z-index: 1;
+}
+
+
+/* .controls-container {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.controls-container button {
+    width: 3rem;
+    height: 2rem;
+}
+
+.controls-container p {
+    margin-top: 0.5rem;
+} */
+
+.history-container, .game-info {
+    width: 30rem;
+    margin: 0 auto;
+    max-height: 45rem;
+    border: 0.2rem solid var(--planeta-geek-celeste);
+    border-radius: 0.5rem;
+    margin-top: 1rem;
+    color: var(--white);
+    font-size: var(--sm);
+    padding: 2rem 1rem;
+    letter-spacing: 0.1rem;
+}
+
+.history-container p {
+    margin-top: 1rem;
+    line-height: 2.5rem;
+}
+
+.history-container .start-btn__container {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+#start_btn {
+    width: 15rem;
+    height: 3rem;
+    cursor: pointer;
+    font-family: 'Black Ops One', cursive;
+    font-family: 'Chivo Mono', monospace;
+}
+
+#start_btn:hover {
+    border: 0.3rem solid var(--planeta-geek-green);
+}
+
+#start_btn:active {
+    background-color: var(--planeta-geek-green);
+}
+
+.game-info {
+    min-height: 25rem;
+}
+
+.game-info p {
+    margin-top: 1rem;
+}
+
+.game-info p:first-child {
+    text-align: center;
+}
+
+#level {
+    color: var(--planeta-geek-green);
+    font-size: var(--xlg);
+}
+
+.parts-container {
+    display: flex;
+    align-items: center;
+    height: 4rem;
+    /* justify-content: space-evenly; */
+}
+
+#ship_parts {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    width: 20rem;
+    margin-left: 1rem;
+    gap: 2rem;
+}
+
+/* #ship_parts img {
+    border: 0.3rem solid white;
+} */
+
+#ship_parts img:first-child {
+    grid-column: 1;
+}
+
+#ship_parts img:nth-child(2) {
+    grid-column: 2;
+}
+
+#ship_parts img:nth-child(3) {
+    grid-column: 3;
+}
+
+#ship_parts img:nth-child(4) {
+    grid-column: 4;
+}
+
+/* .notifications-title {
+    letter-spacing: 0.1rem;
+} */
+
+#notifications {
+    color: var(--red-notifications);
+    text-transform: uppercase;
+    line-height: 3rem;
+}
