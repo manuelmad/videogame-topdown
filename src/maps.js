@@ -80,6 +80,30 @@ const capsuleSprites = {
   }
 };
 
+const cannon = new Image();
+cannon.src= '../assets/imgs/cannon/Cannon-left.png';
+
+const cannonSprites = {
+  "0": {
+    x: 0,
+    y: 0,
+    width: 252,
+    height: 139
+  }
+};
+
+const button = new Image();
+button.src= '../assets/imgs/button/arcade_button.png';
+
+const buttonSprites = {
+  "0": {
+    x: 0,
+    y: 0,
+    width: 32,
+    height: 32
+  }
+};
+
 const walls3D = new Image();
 walls3D.src = '../assets/imgs/backgrounds/walls_x.png';
 

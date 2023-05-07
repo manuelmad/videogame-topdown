@@ -142,6 +142,34 @@ const renderCapsule = (tileType, capsuleIndex, posX, posY, width, height) => {
 	ctx.drawImage(capsule, backgroundTile.x, backgroundTile.y, backgroundTile.width, backgroundTile.height, bkgdX, bkgdY, width, height);
 }
 
+/* CAÑÓN */
+let xCannon;
+let yCannon;
+let widthCannon;
+let heightCannon;
+
+const renderCannon = (tileType, cannonIndex, posX, posY, width, height) => {
+	const tileType_ = tileType;
+	const backgroundTile = tileType_[cannonIndex];
+	const bkgdX = posX;
+	const bkgdY = posY;
+	ctx.drawImage(cannon, backgroundTile.x, backgroundTile.y, backgroundTile.width, backgroundTile.height, bkgdX, bkgdY, width, height);
+}
+
+/* BOTÓN */
+let xButton;
+let yButton;
+let widthButton;
+let heightButton;
+
+const renderButton = (tileType, buttonIndex, posX, posY, width, height) => {
+	const tileType_ = tileType;
+	const backgroundTile = tileType_[buttonIndex];
+	const bkgdX = posX;
+	const bkgdY = posY;
+	ctx.drawImage(button, backgroundTile.x, backgroundTile.y, backgroundTile.width, backgroundTile.height, bkgdX, bkgdY, width, height);
+}
+
 
 /* MAPA */
 // const map = (tileType, rockIndex, posX, posY, width, height) => {
@@ -633,6 +661,7 @@ function moveUp() {
 	shipPart(posXship, posYship);
 	shipPartDisappear();
 	levelWin();
+	buttonPress();
 
 	if(positionY > borders.upper_border.yinicial) {
 		positionY = positionY-movePixels;
@@ -685,6 +714,7 @@ function moveDown() {
 	shipPart(posXship, posYship);
 	shipPartDisappear();
 	levelWin();
+	buttonPress();
 
 	if(positionY < borders.lower_border.yfinal - characterHeight) {
 		positionY = positionY+movePixels;
@@ -736,6 +766,7 @@ function moveLeft() {
 	shipPart(posXship, posYship);
 	shipPartDisappear();
 	levelWin();
+	buttonPress();
 
 	if(positionX > borders.left_border.xinicial) {
 		positionX = positionX-movePixels;
@@ -786,6 +817,7 @@ function moveRight() {
 	shipPart(posXship, posYship);
 	shipPartDisappear();
 	levelWin();
+	buttonPress();
 
 	if(positionX < borders.right_border.xfinal - characterWidth) {
 		positionX = positionX+movePixels;
@@ -984,6 +1016,7 @@ function moveLeftEnemy() {
 	shipPart(posXship, posYship);
 	shipPartDisappear();
 	levelWin();
+	buttonPress();
 
 	if(positionXenemy > enemyLeftLimit && borderPosition == 'right') {
 		positionXenemy = positionXenemy-movePixelsenemy;
@@ -1048,6 +1081,7 @@ function moveRightenemy() {
 	shipPart(posXship, posYship);
 	shipPartDisappear();
 	levelWin();
+	buttonPress();
 
 	if(positionXenemy < enemyRightLimit - enemyWidth && borderPosition == 'left') {
 		positionXenemy = positionXenemy+movePixelsenemy;
@@ -1149,6 +1183,7 @@ function moveUpEnemy() {
 	shipPart(posXship, posYship);
 	shipPartDisappear();
 	levelWin();
+	buttonPress();
 
 	if(positionYenemy2 > enemy2UpLimit && borderPosition2 == 'down') {
 		positionYenemy2 = positionYenemy2-movePixelsenemy2;
@@ -1216,6 +1251,7 @@ function moveDownEnemy() {
 	shipPart(posXship, posYship);
 	shipPartDisappear();
 	levelWin();
+	buttonPress();
 
 	if(positionYenemy2 < enemy2DownLimit - enemyHeight2 && borderPosition2 == 'up') {
 		positionYenemy2 = positionYenemy2+movePixelsenemy2;
@@ -1991,6 +2027,19 @@ function explosionsActivator() {
 	}
 }
 
+const button_pressing = new Audio();
+button_pressing.src = '../assets/effects/button.mp3';
+
+function buttonPress() {
+	if((positionX+characterWidth/2 > xButton && positionX+characterWidth/2 < xButton+30) && (positionY+characterHeight < yButton + 30 && positionY+characterHeight > yButton)) {
+		button_pressing.play();
+		setTimeout( () => {
+			button_pressing.pause();
+			button_pressing.currentTime = 0;
+		}, 500);
+	}
+}
+
 
 /* NIVEL 3 */
 
@@ -2022,68 +2071,57 @@ const layout3 = () => {
 	renderBackground(backgroundTiles, 2, canvasWidth/30, canvasHeight/1.7, 30, 30);
 
 	/* Paredes */
-	// Horizontales
 	renderWallsBrick(wallsBrickTiles, 2, 0, 80, 72, 64);
 	for(let i = 72; i <= canvasWidth-178; i=i+56) {
 		renderWallsBrick(wallsBrickTiles, 1, i, 82, 56, 62);
 	}
 	renderWallsBrick(wallsBrickTiles, 3, 522, 80, 70, 64);
 
-	renderWallsBrick(wallsBrickTiles, 2, 108, 180, 72, 64);
+	renderWallsBrick(wallsBrickTiles, 2, 108, 190, 72, 64);
 	for(let i = 180; i <= canvasWidth-70; i=i+56) {
-		renderWallsBrick(wallsBrickTiles, 1, i, 182, 56, 62);
+		renderWallsBrick(wallsBrickTiles, 1, i, 192, 56, 62);
 	}
 
-	renderWallsBrick(wallsBrickTiles, 0, 348, 182, 12, 64);
-	renderWallsBrick(wallsBrickTiles, 4, 348, 244, 78, 64);
-	renderWallsBrick(wallsBrickTiles, 0, 414, 182, 12, 64);
+	renderWallsBrick(wallsBrickTiles, 0, 348, 192, 12, 64); // Vertical
+	renderWallsBrick(wallsBrickTiles, 4, 348, 234, 78, 64);
+	renderWallsBrick(wallsBrickTiles, 0, 414, 192, 12, 64); // Vertical
+	renderWallsBrick(wallsBrickTiles, 3, 630, 190, 70, 64);
 
-	renderWallsBrick(wallsBrickTiles, 3, 630, 180, 70, 64);
-
-	renderWallsBrick(wallsBrickTiles, 2, 0, 350, 72, 64);
+	renderWallsBrick(wallsBrickTiles, 2, 0, 355, 72, 64);
 	for(let i = 72; i <= canvasWidth-178; i=i+56) {
-		renderWallsBrick(wallsBrickTiles, 1, i, 352, 56, 62);
+		renderWallsBrick(wallsBrickTiles, 1, i, 357, 56, 62);
 	}
-	renderWallsBrick(wallsBrickTiles, 3, 522, 350, 70, 64);
+	renderWallsBrick(wallsBrickTiles, 3, 522, 355, 70, 64);
 
+	renderWallsBrick(wallsBrickTiles, 0, 580, 355, 12, 64); // Vertical
+	renderWallsBrick(wallsBrickTiles, 0, 580, 419, 12, 64); // Vertical
 
-	// Verticales
-	// renderWalls(walls3Dtiles, 2, 70, 416, 32, 32);
-	// for(let i = 430; i <= canvasHeight-32; i=i+32) {
-	// 	renderWalls(walls3Dtiles, 1, 70, i, 32, 32);
-	// }
-	// renderWalls(walls3Dtiles, 0, 70, canvasHeight-32, 32, 32);
-
-
-	// for(let i = 330; i <= canvasHeight-100; i=i+32) {
-	// 	renderWalls(walls3Dtiles, 1, 170, i, 32, 32);
-	// }
-	// renderWalls(walls3Dtiles, 0, 170, canvasHeight-100, 32, 32);
-
-	// renderWalls(walls3Dtiles, 2, 270, 398, 32, 32);
-	// for(let i = 430; i <= 490; i=i+32) {
-	// 	renderWalls(walls3Dtiles, 1, 270, i, 32, 32);
-	// }
-	// renderWalls(walls3Dtiles, 0, 270, 490, 32, 32);
-
-	// renderWalls(walls3Dtiles, 2, 270, 570, 32, 32);
-	// for(let i = 602; i <= canvasHeight-32; i=i+32) {
-	// 	renderWalls(walls3Dtiles, 1, 270, i, 32, 32);
-	// }
-	// renderWalls(walls3Dtiles, 0, 270, canvasHeight-32, 32, 32);
-
-
-	// for(let i = 330; i <= canvasHeight-100; i=i+32) {
-	// 	renderWalls(walls3Dtiles, 1, 370, i, 32, 32);
-	// }
-	// renderWalls(walls3Dtiles, 0, 370, canvasHeight-100, 32, 32);
+	renderWallsBrick(wallsBrickTiles, 2, 108, 483, 72, 64);
+	for(let i = 180; i <= canvasWidth-178; i=i+56) {
+		renderWallsBrick(wallsBrickTiles, 1, i, 485, 56, 62);
+	}
+	renderWallsBrick(wallsBrickTiles, 3, 522, 483, 70, 64);
 
 	// Cápsula
 	xCapsule = (canvasWidth/2) - 27.5;
-	yCapsule = canvasHeight*0.75;
+	yCapsule = 370;
 	widthCapsule = 55;
 	heightCapsule = 106;
 	renderCapsule(capsuleSprites, 0, xCapsule, yCapsule, widthCapsule, heightCapsule);
+
+	// Cannon
+	xCannon = canvasWidth - 125;
+	yCannon = canvasHeight - 100;
+	widthCannon = 120;
+	heightCannon = 66;
+	renderCannon(cannonSprites, 0, xCannon, yCannon, widthCannon, heightCannon);
+
+	// Botón
+	xButton = canvasWidth - 60;
+	yButton = 274;
+	widthButton = 32;
+	heightButton = 32;
+	renderButton(buttonSprites, 0, xButton, yButton, widthButton, heightButton);
 }
 
 
@@ -2213,6 +2251,7 @@ function startLevel3(timeIntervalHeroe, timeIntervalEnemy1, timeIntervalEnemy2) 
 	shipPart(posXship, posYship);
 	shipPartDisappear();
 	levelWin();
+	buttonPress();
 
     // Renderizar Héroe
     animationIndex = 0;
@@ -2227,11 +2266,11 @@ function startLevel3(timeIntervalHeroe, timeIntervalEnemy1, timeIntervalEnemy2) 
     animationIndexEnemy = 0;
 	movePixelsenemy = 22;
 
-    positionXenemy = 484;
-    positionYenemy = 368;
+    positionXenemy = 108;
+    positionYenemy = 119;
     borderPosition = 'left';
 
-	enemyLeftLimit = 484;
+	enemyLeftLimit = 108;
 	enemyRightLimit = 690;
 
 	ctx.drawImage(framesEnemy[animationIndexEnemy], positionXenemy, positionYenemy, enemyWidth, enemyHeight);
@@ -2240,13 +2279,13 @@ function startLevel3(timeIntervalHeroe, timeIntervalEnemy1, timeIntervalEnemy2) 
 
 	// Renderizar Enemigo 2
 	animationIndexEnemy2 = 0;
-	movePixelsenemy2 = 22;
+	movePixelsenemy2 = 30;
 
     positionXenemy2 = 366;
-    positionYenemy2 = 432;
+    positionYenemy2 = 522;
     borderPosition2 = 'up';
 
-	enemy2UpLimit = 432;
+	enemy2UpLimit = 522;
 	enemy2DownLimit = 690;
 	ctx.drawImage(framesEnemy2[animationIndexEnemy2], positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
 
