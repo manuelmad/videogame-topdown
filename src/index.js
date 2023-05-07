@@ -120,6 +120,14 @@ const renderWalls = (tileType, backgroundIndex, posX, posY, width, height) => {
 	ctx.drawImage(walls3D, walls3Dtiles.x, walls3Dtiles.y, walls3Dtiles.width, walls3Dtiles.height, bkgdX, bkgdY, width, height);
 }
 
+const renderWallsBrick = (tileType, backgroundIndex, posX, posY, width, height) => {
+	const tileType_ = tileType;
+	const wallsBrickTiles = tileType_[backgroundIndex];
+	const bkgdX = posX;
+	const bkgdY = posY;
+	ctx.drawImage(wallsBrick, wallsBrickTiles.x, wallsBrickTiles.y, wallsBrickTiles.width, wallsBrickTiles.height, bkgdX, bkgdY, width, height);
+}
+
 /* CÁPSULA */
 let xCapsule;
 let yCapsule;
@@ -311,7 +319,7 @@ function shipPartDisappear() {
 	if((positionX+characterWidth/2 > posXship && positionX+characterWidth/2 < posXship+shipWidth) && (positionY+characterHeight/2 < posYship + shipHeight && positionY+characterHeight/2 > posYship)) {
 		partTaken = true;
 		// Condicional para reproducir sonido cuando toma la parte
-		if(sublevel == 0 && ship_part_container.innerHTML == "" || sublevel == 1 && ship_part_container.children.length == 1) {
+		if(sublevel == 0 && ship_part_container.innerHTML == "" || sublevel == 1 && ship_part_container.children.length == 1 || sublevel == 2 && ship_part_container.children.length == 2) {
 			audio_part.play();
 			setTimeout(()=> {
 				audio_part.pause();
@@ -329,6 +337,8 @@ function shipPartDisappear() {
 			renderBackground(backgroundTiles, 0, posXship, posYship, shipWidth, shipHeight);
 		} else if(sublevel == 1) {
 			renderBackground(backgroundTiles, 6, posXship, posYship, shipWidth, shipHeight);
+		} else if(sublevel == 2) {
+			renderBackground(backgroundTiles, 0, posXship, posYship, shipWidth, shipHeight);
 		}
 
 		// Aparece la parte tomada en el párrafo correspondiente
@@ -336,6 +346,8 @@ function shipPartDisappear() {
 			ship_part_container.appendChild(part1);
 		} else if(sublevel == 1) {
 			ship_part_container.appendChild(part2);
+		} else if(sublevel == 2) {
+			ship_part_container.appendChild(part3);
 		}
 	}
 }
@@ -373,9 +385,18 @@ function levelWin() {
 				if(sublevel == 1) {
 					startLevel2(80, 140, 100);
 				} else if(sublevel == 2) {
+					framesEnemy = [];
+					framesEnemy = [frame1red, frame2red, frame3red, frame4red, frame5red, frame6red];
+
+					framesEnemyLeft = [];
+					framesEnemyLeft = [frame1red_left, frame2red_left, frame3red_left, frame4red_left, frame5red_left, frame6red_left];
+
+					framesEnemy2 = [];
+					framesEnemy2 = [frame1red, frame2red, frame3red, frame4red, frame5red, frame6red];
+
 					startLevel3(80, 140, 100);
 				}
-				//startLevel2(80, 140, 100);
+				
 			}, 2000);
 
 		} else {
@@ -605,6 +626,8 @@ function moveUp() {
 		layout();
 	} else if(sublevel == 1) {
 		layout2();
+	} else if(sublevel == 2) {
+		layout3();
 	}
 
 	shipPart(posXship, posYship);
@@ -656,6 +679,8 @@ function moveDown() {
 		layout();
 	} else if(sublevel == 1) {
 		layout2();
+	} else if(sublevel == 2) {
+		layout3();
 	}
 	shipPart(posXship, posYship);
 	shipPartDisappear();
@@ -705,6 +730,8 @@ function moveLeft() {
 		layout();
 	} else if(sublevel == 1) {
 		layout2();
+	} else if(sublevel == 2) {
+		layout3();
 	}
 	shipPart(posXship, posYship);
 	shipPartDisappear();
@@ -753,6 +780,8 @@ function moveRight() {
 		layout();
 	} else if(sublevel == 1) {
 		layout2();
+	} else if(sublevel == 2) {
+		layout3();
 	}
 	shipPart(posXship, posYship);
 	shipPartDisappear();
@@ -917,8 +946,8 @@ frame5_izq.src = './assets/imgs/blue-alien/walk-right/blue__0010_walk_5_izq.png'
 const frame6_izq = new Image();
 frame6_izq.src = './assets/imgs/blue-alien/walk-right/blue__0011_walk_6_izq.png';
 
-const framesEnemy = [frame1, frame2, frame3, frame4, frame5, frame6];
-const framesEnemyLeft = [frame1_izq, frame2_izq, frame3_izq, frame4_izq, frame5_izq, frame6_izq];
+let framesEnemy = [frame1, frame2, frame3, frame4, frame5, frame6];
+let framesEnemyLeft = [frame1_izq, frame2_izq, frame3_izq, frame4_izq, frame5_izq, frame6_izq];
 
 let animationIndexEnemy = 0;
 
@@ -949,6 +978,8 @@ function moveLeftEnemy() {
 		layout();
 	} else if(sublevel == 1) {
 		layout2();
+	} else if(sublevel == 2) {
+		layout3();
 	}
 	shipPart(posXship, posYship);
 	shipPartDisappear();
@@ -1011,6 +1042,8 @@ function moveRightenemy() {
 		layout();
 	} else if(sublevel == 1) {
 		layout2();
+	} else if(sublevel == 2) {
+		layout3();
 	}
 	shipPart(posXship, posYship);
 	shipPartDisappear();
@@ -1060,24 +1093,24 @@ function moveRightenemy() {
 /* Enemigo 2 */
 // Caminar hacia abajo y arriba
 const frame1_2 = new Image();
-frame1_2.src = './assets/imgs/blue-alien/walk-right/blue__0006_walk_1.png';
+frame1_2.src = '../assets/imgs/blue-alien/walk-right/blue__0006_walk_1.png';
 
 const frame2_2 = new Image();
-frame2_2.src = './assets/imgs/blue-alien/walk-right/blue__0007_walk_2.png';
+frame2_2.src = '../assets/imgs/blue-alien/walk-right/blue__0007_walk_2.png';
 
 const frame3_2 = new Image();
-frame3_2.src = './assets/imgs/blue-alien/walk-right/blue__0008_walk_3.png';
+frame3_2.src = '../assets/imgs/blue-alien/walk-right/blue__0008_walk_3.png';
 
 const frame4_2 = new Image();
-frame4_2.src = './assets/imgs/blue-alien/walk-right/blue__0009_walk_4.png';
+frame4_2.src = '../assets/imgs/blue-alien/walk-right/blue__0009_walk_4.png';
 
 const frame5_2 = new Image();
-frame5_2.src = './assets/imgs/blue-alien/walk-right/blue__0010_walk_5.png';
+frame5_2.src = '../assets/imgs/blue-alien/walk-right/blue__0010_walk_5.png';
 
 const frame6_2 = new Image();
-frame6_2.src = './assets/imgs/blue-alien/walk-right/blue__0011_walk_6.png';
+frame6_2.src = '../assets/imgs/blue-alien/walk-right/blue__0011_walk_6.png';
 
-const framesEnemy2 = [frame1_2, frame2_2, frame3_2, frame4_2, frame5_2, frame6_2];
+let framesEnemy2 = [frame1_2, frame2_2, frame3_2, frame4_2, frame5_2, frame6_2];
 
 let animationIndexEnemy2 = 0;
 
@@ -1110,6 +1143,8 @@ function moveUpEnemy() {
 		layout();
 	} else if(sublevel == 1) {
 		layout2();
+	} else if(sublevel == 2) {
+		layout3();
 	}
 	shipPart(posXship, posYship);
 	shipPartDisappear();
@@ -1175,6 +1210,8 @@ function moveDownEnemy() {
 		layout();
 	} else if(sublevel == 1) {
 		layout2();
+	} else if(sublevel == 2) {
+		layout3();
 	}
 	shipPart(posXship, posYship);
 	shipPartDisappear();
@@ -1334,9 +1371,9 @@ function collisionCheck() {
 
 			const notifications = document.getElementById('notifications');
 			notifications.innerText = "Capturado por un alienígena! Vuelve a intentarlo!";
-			setTimeout(()=>{
-				notifications.innerText = "";
-			}, 3000)
+			// setTimeout(()=>{
+			// 	notifications.innerText = "";
+			// }, 3000)
 
 			// Reproducir sonido cuando colisiona con elenemigo
 			audio_collision.play();
@@ -1350,27 +1387,40 @@ function collisionCheck() {
 				ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 				collision = false;
 
+				notifications.innerText = "";
 				// Reiniciar heroe
 				animationIndex = 0;
 				if(sublevel == 0) {
 					positionX = 0;
 					positionY = canvasHeight - characterHeight;
-				} else if(sublevel == 1) {
+
+					// Reiniciar enemigo
+					animationIndexEnemy = 0;
+					positionXenemy = 200;
+					positionYenemy = 518;
+					borderPosition = 'left';
+
+					// Reiniciar enemigo 2
+					animationIndexEnemy2 = 0;
+					positionXenemy2 = 300;
+					positionYenemy2 = 0;
+					borderPosition2 = 'up';
+				} /*else if(sublevel == 1) {
 					positionX = canvasWidth-60;
 					positionY = 10;
-				}
+				}*/
 
 				// Reiniciar enemigo
-				animationIndexEnemy = 0;
-				positionXenemy = 200;
-				positionYenemy = 518;
-				borderPosition = 'left';
+				// animationIndexEnemy = 0;
+				// positionXenemy = 200;
+				// positionYenemy = 518;
+				// borderPosition = 'left';
 
 				// Reiniciar enemigo 2
-				animationIndexEnemy2 = 0;
-				positionXenemy2 = 300;
-				positionYenemy2 = 0;
-				borderPosition2 = 'up';
+				// animationIndexEnemy2 = 0;
+				// positionXenemy2 = 300;
+				// positionYenemy2 = 0;
+				// borderPosition2 = 'up';
 
 				// Reinicio la parte de la nave en el mapa
 				partTaken = false;
@@ -1378,8 +1428,12 @@ function collisionCheck() {
 				// Limpio el contenedor de partes de nave
 				if(sublevel == 0) {
 					ship_part_container.innerHTML = "";
-				} else {
+				} else if(sublevel == 1){
 					if(ship_part_container.children.length>1 ) {
+						ship_part_container.removeChild(ship_part_container.lastChild);
+					}
+				} else if(sublevel == 2) {
+					if(ship_part_container.children.length>2 ) {
 						ship_part_container.removeChild(ship_part_container.lastChild);
 					}
 				}
@@ -1391,11 +1445,11 @@ function collisionCheck() {
 
 				// Reinicar juego
 				if(sublevel == 0) {
-					// startGame(80**2, 140**2, 100**2);
 					startGame(80, 140, 100);
 				} else if(sublevel == 1) {
-					//startLevel2(80**2, 140**2, 100**2);
 					startLevel2(80, 140, 100);
+				} else if(sublevel == 2) {
+					startLevel3(80, 140, 100);
 				}
 
 			}, 3000);
@@ -1429,36 +1483,49 @@ function collisionCheck2() {
 
 			const notifications = document.getElementById('notifications');
 			notifications.innerText = "Capturado por un alienígena! Vuelve a intentarlo!";
-			setTimeout(()=>{
-				notifications.innerText = "";
-			}, 3000)
+			// setTimeout(()=>{
+			// 	notifications.innerText = "";
+			// }, 3000)
 
 			// Espera 3 segundos para reinicair juego
 			setTimeout(() => {
 				ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 				collision2 = false;
 
+				notifications.innerText = "";
 				// Reiniciar héroe
 				animationIndex = 0;
 				if(sublevel == 0) {
 					positionX = 0;
 					positionY = canvasHeight - characterHeight;
-				} else if(sublevel == 1) {
+
+						// Reiniciar enemigo
+					animationIndexEnemy = 0;
+					positionXenemy = 200;
+					positionYenemy = 518;
+					borderPosition = 'left';
+
+					// Reiniciar enemigo 2
+					animationIndexEnemy2 = 0;
+					positionXenemy2 = 300;
+					positionYenemy2 = 0;
+					borderPosition2 = 'up';
+				} /*else if(sublevel == 1) {
 					positionX = canvasWidth-60;
 					positionY = 10;
-				}
+				}*/
 
 				// Reiniciar enemigo
-				animationIndexEnemy = 0;
-				positionXenemy = 200;
-				positionYenemy = 518;
-				borderPosition = 'left';
+				// animationIndexEnemy = 0;
+				// positionXenemy = 200;
+				// positionYenemy = 518;
+				// borderPosition = 'left';
 
 				// Reiniciar enemigo 2
-				animationIndexEnemy2 = 0;
-				positionXenemy2 = 300;
-				positionYenemy2 = 0;
-				borderPosition2 = 'up';
+				// animationIndexEnemy2 = 0;
+				// positionXenemy2 = 300;
+				// positionYenemy2 = 0;
+				// borderPosition2 = 'up';
 
 				// Reinicio la parte de la nave en el mapa
 				partTaken = false;
@@ -1466,8 +1533,12 @@ function collisionCheck2() {
 				// Limpio el contenedor de partes de nave
 				if(sublevel == 0) {
 					ship_part_container.innerHTML = "";
-				} else {
+				} else if(sublevel == 1){
 					if(ship_part_container.children.length>1 ) {
+						ship_part_container.removeChild(ship_part_container.lastChild);
+					}
+				} else if(sublevel == 2) {
+					if(ship_part_container.children.length>2 ) {
 						ship_part_container.removeChild(ship_part_container.lastChild);
 					}
 				}
@@ -1480,11 +1551,11 @@ function collisionCheck2() {
 
 				// Reinicar juego
 				if(sublevel == 0) {
-					// startGame(80**2, 140**2, 100**2);
 					startGame(80, 140, 100);
 				} else if(sublevel == 1) {
-					//startLevel2(80**2, 140**2, 100**2);
 					startLevel2(80, 140, 100);
+				} else if(sublevel == 2) {
+					startLevel3(80, 140, 100);
 				}
 			}, 3000);
 		} else {
@@ -1563,6 +1634,9 @@ start_button.addEventListener('click', ()=> {
 	positionY = canvasHeight - characterHeight;
 
 	// Reiniciar enemigo
+	framesEnemy = [frame1, frame2, frame3, frame4, frame5, frame6];
+	framesEnemyLeft = [frame1_izq, frame2_izq, frame3_izq, frame4_izq, frame5_izq, frame6_izq];
+	movePixelsenemy = 10;
 	animationIndexEnemy = 0;
 	positionXenemy = 200;
 	positionYenemy = 518;
@@ -1572,7 +1646,9 @@ start_button.addEventListener('click', ()=> {
 	
 
 	// Reiniciar enemigo 2
+	framesEnemy2 = [frame1_2, frame2_2, frame3_2, frame4_2, frame5_2, frame6_2];
 	animationIndexEnemy2 = 0;
+	movePixelsenemy2 = 13;
 	positionXenemy2 = 300;
 	positionYenemy2 = 0;
 	borderPosition2 = 'up';
@@ -1857,7 +1933,6 @@ function explosionsActivator() {
 				effect1 = setInterval(explosion, 250);
 			} else if(bomb2) {
 				effect2 = setInterval(explosion2, 250);
-
 			}
 			
 
@@ -1894,8 +1969,12 @@ function explosionsActivator() {
 				// Limpio el contenedor de partes de nave
 				if(sublevel == 0) {
 					ship_part_container.innerHTML = "";
-				} else {
+				} else if(sublevel == 1){
 					if(ship_part_container.children.length>1 ) {
+						ship_part_container.removeChild(ship_part_container.lastChild);
+					}
+				} else if(sublevel == 2) {
+					if(ship_part_container.children.length>2 ) {
 						ship_part_container.removeChild(ship_part_container.lastChild);
 					}
 				}
@@ -1944,23 +2023,28 @@ const layout3 = () => {
 
 	/* Paredes */
 	// Horizontales
-	// renderWalls(walls3Dtiles, 5, 0, 307, 32, 32);
-	// for(let i = 32; i <= canvasWidth-108; i=i+32) {
-	// 	renderWalls(walls3Dtiles, 3, i, 307, 32, 32);
-	// }
-	// renderWalls(walls3Dtiles, 4, 592, 307, 32, 32);
+	renderWallsBrick(wallsBrickTiles, 2, 0, 80, 72, 64);
+	for(let i = 72; i <= canvasWidth-178; i=i+56) {
+		renderWallsBrick(wallsBrickTiles, 1, i, 82, 56, 62);
+	}
+	renderWallsBrick(wallsBrickTiles, 3, 522, 80, 70, 64);
 
-	// renderWalls(walls3Dtiles, 5, 361, 145, 32, 32);
-	// for(let i = 377; i <= canvasWidth-108; i=i+32) {
-	// 	renderWalls(walls3Dtiles, 3, i, 145, 32, 32);
-	// }
-	// renderWalls(walls3Dtiles, 4, canvasWidth-108, 145, 32, 32);
+	renderWallsBrick(wallsBrickTiles, 2, 108, 180, 72, 64);
+	for(let i = 180; i <= canvasWidth-70; i=i+56) {
+		renderWallsBrick(wallsBrickTiles, 1, i, 182, 56, 62);
+	}
 
-	// renderWalls(walls3Dtiles, 5, 84, 145, 32, 32);
-	// for(let i = 100; i <= 240; i=i+32) {
-	// 	renderWalls(walls3Dtiles, 3, i, 145, 32, 32);
-	// }
-	// renderWalls(walls3Dtiles, 4, 240, 145, 32, 32);
+	renderWallsBrick(wallsBrickTiles, 0, 348, 182, 12, 64);
+	renderWallsBrick(wallsBrickTiles, 4, 348, 244, 78, 64);
+	renderWallsBrick(wallsBrickTiles, 0, 414, 182, 12, 64);
+
+	renderWallsBrick(wallsBrickTiles, 3, 630, 180, 70, 64);
+
+	renderWallsBrick(wallsBrickTiles, 2, 0, 350, 72, 64);
+	for(let i = 72; i <= canvasWidth-178; i=i+56) {
+		renderWallsBrick(wallsBrickTiles, 1, i, 352, 56, 62);
+	}
+	renderWallsBrick(wallsBrickTiles, 3, 522, 350, 70, 64);
 
 
 	// Verticales
@@ -1995,11 +2079,11 @@ const layout3 = () => {
 	// renderWalls(walls3Dtiles, 0, 370, canvasHeight-100, 32, 32);
 
 	// Cápsula
-	// xCapsule = canvasWidth-65;
-	// yCapsule = 10;
-	// widthCapsule = 55;
-	// heightCapsule = 106;
-	// renderCapsule(capsuleSprites, 0, xCapsule, yCapsule, widthCapsule, heightCapsule);
+	xCapsule = (canvasWidth/2) - 27.5;
+	yCapsule = canvasHeight*0.75;
+	widthCapsule = 55;
+	heightCapsule = 106;
+	renderCapsule(capsuleSprites, 0, xCapsule, yCapsule, widthCapsule, heightCapsule);
 }
 
 
@@ -2060,6 +2144,43 @@ const walls3 = [
 const part3 = document.createElement('img');
 part3.src = '../assets/imgs/ship1/parts/ship1_nose.png';
 
+/* ENEMIGO ROJO */
+const frame1red = new Image();
+frame1red.src = '../assets/imgs/red-alien/walk/red__0006_walk_1.png';
+
+const frame2red = new Image();
+frame2red.src = '../assets/imgs/red-alien/walk/red__0007_walk_2.png';
+
+const frame3red = new Image();
+frame3red.src = '../assets/imgs/red-alien/walk/red__0008_walk_3.png';
+
+const frame4red = new Image();
+frame4red.src = '../assets/imgs/red-alien/walk/red__0009_walk_4.png';
+
+const frame5red = new Image(); 
+frame5red.src = './assets/imgs/red-alien/walk/red__0010_walk_5.png';
+
+const frame6red = new Image(); 
+frame6red.src = '../assets/imgs/red-alien/walk/red__0011_walk_6.png';
+
+// Caminar hacia la izquierda
+const frame1red_left = new Image(); 
+frame1red_left.src = '../assets/imgs/red-alien/walk/red__0006_walk_1_left.png';
+
+const frame2red_left = new Image(); 
+frame2red_left.src = '../assets/imgs/red-alien/walk/red__0007_walk_2_left.png';
+
+const frame3red_left = new Image();
+frame3red_left.src = '../assets/imgs/red-alien/walk/red__0008_walk_3_left.png';
+
+const frame4red_left = new Image();
+frame4red_left.src = '../assets/imgs/red-alien/walk/red__0009_walk_4_left.png';
+
+const frame5red_left = new Image();
+frame5red_left.src = '../assets/imgs/red-alien/walk/red__0010_walk_5_left.png';
+
+const frame6red_left = new Image();
+frame6red_left.src = '../assets/imgs/red-alien/walk/red__0011_walk_6_left.png';
 
 function startLevel3(timeIntervalHeroe, timeIntervalEnemy1, timeIntervalEnemy2) {
 	
@@ -2104,7 +2225,7 @@ function startLevel3(timeIntervalHeroe, timeIntervalEnemy1, timeIntervalEnemy2) 
 
     // Renderizar Enemigo
     animationIndexEnemy = 0;
-	movePixelsenemy = 15;
+	movePixelsenemy = 22;
 
     positionXenemy = 484;
     positionYenemy = 368;
@@ -2119,7 +2240,7 @@ function startLevel3(timeIntervalHeroe, timeIntervalEnemy1, timeIntervalEnemy2) 
 
 	// Renderizar Enemigo 2
 	animationIndexEnemy2 = 0;
-	movePixelsenemy2 = 18;
+	movePixelsenemy2 = 22;
 
     positionXenemy2 = 366;
     positionYenemy2 = 432;

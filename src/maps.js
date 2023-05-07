@@ -1,6 +1,3 @@
-
-
-
 const background = new Image();
 background.src = '../assets/imgs/backgrounds/tilemap.png';
 
@@ -206,5 +203,46 @@ const explosionTiles = {
     y: 0,
     width: 96,
     height: 96
+  }
+};
+
+const wallsBrick = new Image();
+wallsBrick.src = '../assets/imgs/backgrounds/rpg-indoor-tileset-expansion-trans.png';
+
+const wallsBrickTiles = {
+  "0": {
+    name: "vertical sin extremos",
+    x: 0,
+    y: 0,
+    width: 6,
+    height: 64
+  },
+  "1": {
+    name: "horizontal sin extremos",
+    x: 1,
+    y: 65,
+    width: 26,
+    height: 30
+  },
+  "2": {
+    name: "extremo izquierdo horizontal",
+    x: 28,
+    y: 64,
+    width: 36,
+    height: 32
+  },
+  "3": {
+    name: "extremo derecho horizontal",
+    x: 1,
+    y: 64,
+    width: 35,
+    height: 32
+  },
+  "4": {
+    name: "pared completa",
+    x: 28,
+    y: 64,
+    width: 56,
+    height: 32
   }
 };
