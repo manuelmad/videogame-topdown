@@ -424,7 +424,7 @@ function levelWin() {
 
 					startLevel3(80, 140, 100);
 				}
-				
+
 			}, 2000);
 
 		} else {
@@ -648,7 +648,7 @@ function moveUp() {
 		return;
 	}
 	positionX = positionX;
-	
+
 	ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 	if(sublevel == 0) {
 		layout();
@@ -665,7 +665,7 @@ function moveUp() {
 
 	if(positionY > borders.upper_border.yinicial) {
 		positionY = positionY-movePixels;
-		
+
 		animationIndex++;
 	}
 	ctx.drawImage(sprite, framesWalking["up"][animationIndex].x, framesWalking["up"][animationIndex].y, framesWalking["up"][animationIndex].width, framesWalking["up"][animationIndex].height, positionX, positionY, characterWidth, characterHeight);
@@ -685,7 +685,10 @@ function moveUp() {
 	if(animationIndexEnemy2 >= 5) {
 		animationIndexEnemy2 = 0
 	}
-	ctx.drawImage(framesEnemy2[animationIndexEnemy2], positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
+	if(!enemy2dead) {
+		ctx.drawImage(framesEnemy2[animationIndexEnemy2], positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
+	}
+	// ctx.drawImage(framesEnemy2[animationIndexEnemy2], positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
 
 	// Renderizo a la bala
 	//ctx.drawImage(asteroid, xFixed, positionYenemyBullet, enemyBulletsWidth, enemyBulletsHeight);
@@ -701,7 +704,7 @@ function moveDown() {
 		return;
 	}
 	positionX = positionX;
-	
+
 	ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
 	if(sublevel == 0) {
@@ -718,7 +721,7 @@ function moveDown() {
 
 	if(positionY < borders.lower_border.yfinal - characterHeight) {
 		positionY = positionY+movePixels;
-		
+
 		animationIndex++;
 	}
 	ctx.drawImage(sprite, framesWalking["down"][animationIndex].x, framesWalking["down"][animationIndex].y, framesWalking["down"][animationIndex].width, framesWalking["down"][animationIndex].height, positionX, positionY, characterWidth, characterHeight);
@@ -737,7 +740,10 @@ function moveDown() {
 	if(animationIndexEnemy2 >= 5) {
 		animationIndexEnemy2 = 0
 	}
-	ctx.drawImage(framesEnemy2[animationIndexEnemy2], positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
+	if(!enemy2dead) {
+		ctx.drawImage(framesEnemy2[animationIndexEnemy2], positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
+	}
+	// ctx.drawImage(framesEnemy2[animationIndexEnemy2], positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
 
 	// Renderizo a la bala
 	//ctx.drawImage(asteroid, xFixed, positionYenemyBullet, enemyBulletsWidth, enemyBulletsHeight);
@@ -753,7 +759,7 @@ function moveLeft() {
 		return;
 	}
 	positionY = positionY;
-	
+
 	ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
 	if(sublevel == 0) {
@@ -768,9 +774,10 @@ function moveLeft() {
 	levelWin();
 	buttonPress();
 
+
 	if(positionX > borders.left_border.xinicial) {
 		positionX = positionX-movePixels;
-		
+
 		animationIndex++;
 	}
 	ctx.drawImage(sprite, framesWalking["left"][animationIndex].x, framesWalking["left"][animationIndex].y, framesWalking["left"][animationIndex].width, framesWalking["left"][animationIndex].height, positionX, positionY, characterWidth, characterHeight);
@@ -789,7 +796,10 @@ function moveLeft() {
 	if(animationIndexEnemy2 >= 5) {
 		animationIndexEnemy2 = 0
 	}
-	ctx.drawImage(framesEnemy2[animationIndexEnemy2], positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
+	if(!enemy2dead) {
+		ctx.drawImage(framesEnemy2[animationIndexEnemy2], positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
+	}
+	// ctx.drawImage(framesEnemy2[animationIndexEnemy2], positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
 
 	// Renderizo a la bala
 	//ctx.drawImage(asteroid, xFixed, positionYenemyBullet, enemyBulletsWidth, enemyBulletsHeight);
@@ -839,7 +849,10 @@ function moveRight() {
 	if(animationIndexEnemy2 >= 5) {
 		animationIndexEnemy2 = 0
 	}
-	ctx.drawImage(framesEnemy2[animationIndexEnemy2], positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
+	if(!enemy2dead) {
+		ctx.drawImage(framesEnemy2[animationIndexEnemy2], positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
+	}
+	// ctx.drawImage(framesEnemy2[animationIndexEnemy2], positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
 
 	// Renderizo a la bala
 	//ctx.drawImage(asteroid, xFixed, positionYenemyBullet, enemyBulletsWidth, enemyBulletsHeight);
@@ -911,7 +924,7 @@ function moveCharacter() {
 	} else if(sublevel == 1) {
 		collisionWalls(walls2);
 	}
-	
+
 
 	if(movingUp == true && !collisionUp) {
 		moveUp();
@@ -942,41 +955,41 @@ function moveCharacter() {
 /* Enemigo */
 // Caminar hacia la derecha
 const frame1 = new Image();
-frame1.src = './assets/imgs/blue-alien/walk-right/blue__0006_walk_1.png';
+frame1.src = '../assets/imgs/blue-alien/walk-right/blue__0006_walk_1.png';
 
 const frame2 = new Image();
-frame2.src = './assets/imgs/blue-alien/walk-right/blue__0007_walk_2.png';
+frame2.src = '../assets/imgs/blue-alien/walk-right/blue__0007_walk_2.png';
 
 const frame3 = new Image();
-frame3.src = './assets/imgs/blue-alien/walk-right/blue__0008_walk_3.png';
+frame3.src = '../assets/imgs/blue-alien/walk-right/blue__0008_walk_3.png';
 
 const frame4 = new Image();
-frame4.src = './assets/imgs/blue-alien/walk-right/blue__0009_walk_4.png';
+frame4.src = '../assets/imgs/blue-alien/walk-right/blue__0009_walk_4.png';
 
 const frame5 = new Image();
-frame5.src = './assets/imgs/blue-alien/walk-right/blue__0010_walk_5.png';
+frame5.src = '../assets/imgs/blue-alien/walk-right/blue__0010_walk_5.png';
 
 const frame6 = new Image();
-frame6.src = './assets/imgs/blue-alien/walk-right/blue__0011_walk_6.png';
+frame6.src = '../assets/imgs/blue-alien/walk-right/blue__0011_walk_6.png';
 
 // Caminar hacia la izquierda
 const frame1_izq = new Image();
 frame1_izq.src = './assets/imgs/blue-alien/walk-right/blue__0006_walk_1_izq.png';
 
 const frame2_izq = new Image();
-frame2_izq.src = './assets/imgs/blue-alien/walk-right/blue__0007_walk_2_izq.png';
+frame2_izq.src = '../assets/imgs/blue-alien/walk-right/blue__0007_walk_2_izq.png';
 
 const frame3_izq = new Image();
-frame3_izq.src = './assets/imgs/blue-alien/walk-right/blue__0008_walk_3_izq.png';
+frame3_izq.src = '../assets/imgs/blue-alien/walk-right/blue__0008_walk_3_izq.png';
 
 const frame4_izq = new Image();
-frame4_izq.src = './assets/imgs/blue-alien/walk-right/blue__0009_walk_4_izq.png';
+frame4_izq.src = '../assets/imgs/blue-alien/walk-right/blue__0009_walk_4_izq.png';
 
 const frame5_izq = new Image();
-frame5_izq.src = './assets/imgs/blue-alien/walk-right/blue__0010_walk_5_izq.png';
+frame5_izq.src = '../assets/imgs/blue-alien/walk-right/blue__0010_walk_5_izq.png';
 
 const frame6_izq = new Image();
-frame6_izq.src = './assets/imgs/blue-alien/walk-right/blue__0011_walk_6_izq.png';
+frame6_izq.src = '../assets/imgs/blue-alien/walk-right/blue__0011_walk_6_izq.png';
 
 let framesEnemy = [frame1, frame2, frame3, frame4, frame5, frame6];
 let framesEnemyLeft = [frame1_izq, frame2_izq, frame3_izq, frame4_izq, frame5_izq, frame6_izq];
@@ -1017,6 +1030,7 @@ function moveLeftEnemy() {
 	shipPartDisappear();
 	levelWin();
 	buttonPress();
+	
 
 	if(positionXenemy > enemyLeftLimit && borderPosition == 'right') {
 		positionXenemy = positionXenemy-movePixelsenemy;
@@ -1044,7 +1058,10 @@ function moveLeftEnemy() {
 		if(animationIndexEnemy2 >= 5) {
 			animationIndexEnemy2 = 0
 		}
-		ctx.drawImage(framesEnemy2[animationIndexEnemy2], positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
+		if(!enemy2dead) {
+			ctx.drawImage(framesEnemy2[animationIndexEnemy2], positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
+		}
+		// ctx.drawImage(framesEnemy2[animationIndexEnemy2], positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
 
 		// Renderizo a la bala
 		//ctx.drawImage(asteroid, xFixed, positionYenemyBullet, enemyBulletsWidth, enemyBulletsHeight);
@@ -1068,7 +1085,7 @@ function moveRightenemy() {
 		return;
 	}
 	positionYenemy = positionYenemy;
-	
+
 	ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
 	if(sublevel == 0) {
@@ -1082,6 +1099,8 @@ function moveRightenemy() {
 	shipPartDisappear();
 	levelWin();
 	buttonPress();
+
+	
 
 	if(positionXenemy < enemyRightLimit - enemyWidth && borderPosition == 'left') {
 		positionXenemy = positionXenemy+movePixelsenemy;
@@ -1109,7 +1128,10 @@ function moveRightenemy() {
 		if(animationIndexEnemy2 >= 5) {
 			animationIndexEnemy2 = 0
 		}
-		ctx.drawImage(framesEnemy2[animationIndexEnemy2], positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
+		if(!enemy2dead) {
+			ctx.drawImage(framesEnemy2[animationIndexEnemy2], positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
+		}
+		// ctx.drawImage(framesEnemy2[animationIndexEnemy2], positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
 
 		// Renderizo a la bala
 		// ctx.drawImage(asteroid, xFixed, positionYenemyBullet, enemyBulletsWidth, enemyBulletsHeight);
@@ -1121,7 +1143,6 @@ function moveRightenemy() {
 		borderPosition = 'right';
 		moveLeftEnemy();
 	}
-
 }
 
 /* Enemigo 2 */
@@ -1170,6 +1191,10 @@ function moveUpEnemy() {
 		clearInterval(enemy2Move);
 		return;
 	}
+	if(enemy2dead) {
+		//renderBackground(backgroundTiles, 0, positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
+		return;
+	}
 	positionXenemy2 = positionXenemy2;
 	ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
@@ -1184,6 +1209,8 @@ function moveUpEnemy() {
 	shipPartDisappear();
 	levelWin();
 	buttonPress();
+
+	
 
 	if(positionYenemy2 > enemy2UpLimit && borderPosition2 == 'down') {
 		positionYenemy2 = positionYenemy2-movePixelsenemy2;
@@ -1237,6 +1264,10 @@ function moveDownEnemy() {
 		clearInterval(enemy2Move);
 		return;
 	}
+	if(enemy2dead) {
+		//renderBackground(backgroundTiles, 0, positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
+		return;
+	}
 	positionXenemy2 = positionXenemy2;
 
 	ctx.clearRect(0, 0, canvasWidth, canvasHeight);
@@ -1252,6 +1283,8 @@ function moveDownEnemy() {
 	shipPartDisappear();
 	levelWin();
 	buttonPress();
+
+	
 
 	if(positionYenemy2 < enemy2DownLimit - enemyHeight2 && borderPosition2 == 'up') {
 		positionYenemy2 = positionYenemy2+movePixelsenemy2;
@@ -1502,6 +1535,9 @@ let collision2 = false;
 
 function collisionCheck2() {
 	// Alien 2
+	if(enemy2dead) {
+		return;
+	}
 	if((positionXenemy2 < positionX+characterWidth-10) && (positionXenemy2+enemyWidth2-10)>positionX) {
 		if(((positionYenemy2+enemyHeight2-5)>positionY) && (positionYenemy2 < (positionY+characterHeight-5))) {
 			collision2 = true;
@@ -1679,7 +1715,7 @@ start_button.addEventListener('click', ()=> {
 	borderPosition = 'left';
 	enemyLeftLimit = 200;
 	enemyRightLimit = 370;
-	
+
 
 	// Reiniciar enemigo 2
 	framesEnemy2 = [frame1_2, frame2_2, frame3_2, frame4_2, frame5_2, frame6_2];
@@ -1855,7 +1891,7 @@ const part2 = document.createElement('img');
 part2.src = '../assets/imgs/ship1/parts/ship1_detail.png';
 
 function startLevel2(timeIntervalHeroe, timeIntervalEnemy1, timeIntervalEnemy2) {
-	
+
 	level_p.innerHTML = sublevel+1;
 
 	level_1_completed = false;
@@ -1960,7 +1996,7 @@ function explosionsActivator() {
 
 		let bomb2 = (positionX+characterWidth/2 > canvasWidth/70 && positionX+characterWidth/2 < canvasWidth/70+30) && (positionY+characterHeight < canvasHeight/1.7 + 30 && positionY+characterHeight > canvasHeight/1.7);
 
-		if(/*(positionX+characterWidth/2 > canvasWidth/13 && positionX+characterWidth/2 < canvasWidth/13+30) && (positionY+characterHeight/2 < canvasHeight/1.3 + 30 && positionY+characterHeight/2 > canvasHeight/1.3)*/bomb1 || bomb2) {
+		if(bomb1 || bomb2) {
 			exploded = true;
 
 			let effect1;
@@ -1970,7 +2006,7 @@ function explosionsActivator() {
 			} else if(bomb2) {
 				effect2 = setInterval(explosion2, 250);
 			}
-			
+
 
 			audio_background.pause();
 			audio_background.currentTime = 0;
@@ -2027,19 +2063,6 @@ function explosionsActivator() {
 	}
 }
 
-const button_pressing = new Audio();
-button_pressing.src = '../assets/effects/button.mp3';
-
-function buttonPress() {
-	if((positionX+characterWidth/2 > xButton && positionX+characterWidth/2 < xButton+30) && (positionY+characterHeight < yButton + 30 && positionY+characterHeight > yButton)) {
-		button_pressing.play();
-		setTimeout( () => {
-			button_pressing.pause();
-			button_pressing.currentTime = 0;
-		}, 500);
-	}
-}
-
 
 /* NIVEL 3 */
 
@@ -2071,36 +2094,86 @@ const layout3 = () => {
 	renderBackground(backgroundTiles, 2, canvasWidth/30, canvasHeight/1.7, 30, 30);
 
 	/* Paredes */
-	renderWallsBrick(wallsBrickTiles, 2, 0, 80, 72, 64);
-	for(let i = 72; i <= canvasWidth-178; i=i+56) {
-		renderWallsBrick(wallsBrickTiles, 1, i, 82, 56, 62);
+	// Horizontal
+	renderWalls(walls3Dtiles, 5, 0, 80, 32, 32);
+	for(let i = 32; i <= canvasWidth-108; i=i+32) {
+		renderWalls(walls3Dtiles, 3, i, 80, 32, 32);
 	}
-	renderWallsBrick(wallsBrickTiles, 3, 522, 80, 70, 64);
+	renderWalls(walls3Dtiles, 4, 592, 80, 32, 32);
 
-	renderWallsBrick(wallsBrickTiles, 2, 108, 190, 72, 64);
-	for(let i = 180; i <= canvasWidth-70; i=i+56) {
-		renderWallsBrick(wallsBrickTiles, 1, i, 192, 56, 62);
+	// renderWallsBrick(wallsBrickTiles, 2, 0, 80, 72, 64);
+	// for(let i = 72; i <= canvasWidth-178; i=i+56) {
+	// 	renderWallsBrick(wallsBrickTiles, 1, i, 82, 56, 62);
+	// }
+	// renderWallsBrick(wallsBrickTiles, 3, 522, 80, 70, 64);
+
+	// Horizontal
+	renderWalls(walls3Dtiles, 5, 108, 190, 32, 32);
+	for(let i = 140; i <= 316; i=i+32) {
+		renderWalls(walls3Dtiles, 3, i, 190, 32, 32);
 	}
-
-	renderWallsBrick(wallsBrickTiles, 0, 348, 192, 12, 64); // Vertical
-	renderWallsBrick(wallsBrickTiles, 4, 348, 234, 78, 64);
-	renderWallsBrick(wallsBrickTiles, 0, 414, 192, 12, 64); // Vertical
-	renderWallsBrick(wallsBrickTiles, 3, 630, 190, 70, 64);
-
-	renderWallsBrick(wallsBrickTiles, 2, 0, 355, 72, 64);
-	for(let i = 72; i <= canvasWidth-178; i=i+56) {
-		renderWallsBrick(wallsBrickTiles, 1, i, 357, 56, 62);
+	for(let i = 440; i <= canvasWidth-32; i=i+32) {
+		renderWalls(walls3Dtiles, 3, i, 190, 32, 32);
 	}
-	renderWallsBrick(wallsBrickTiles, 3, 522, 355, 70, 64);
+	renderWalls(walls3Dtiles, 4, 668, 190, 32, 32);
 
-	renderWallsBrick(wallsBrickTiles, 0, 580, 355, 12, 64); // Vertical
-	renderWallsBrick(wallsBrickTiles, 0, 580, 419, 12, 64); // Vertical
+	// renderWallsBrick(wallsBrickTiles, 2, 108, 190, 72, 64);
+	// for(let i = 180; i <= canvasWidth-70; i=i+56) {
+	// 	renderWallsBrick(wallsBrickTiles, 1, i, 192, 56, 62);
+	// }
 
-	renderWallsBrick(wallsBrickTiles, 2, 108, 483, 72, 64);
-	for(let i = 180; i <= canvasWidth-178; i=i+56) {
-		renderWallsBrick(wallsBrickTiles, 1, i, 485, 56, 62);
+	// Vertical
+	renderWalls(walls3Dtiles, 2, 316, 190, 32, 32);
+	for(let i = 222; i <= 256; i=i+32) {
+		renderWalls(walls3Dtiles, 1, 316, i, 32, 32);
 	}
-	renderWallsBrick(wallsBrickTiles, 3, 522, 483, 70, 64);
+	renderWalls(walls3Dtiles, 0, 316, 286, 32, 32);
+
+	// renderWallsBrick(wallsBrickTiles, 0, 348, 192, 12, 64); // Vertical
+
+	// Horizontal
+	renderWalls(walls3Dtiles, 3, 344, 286, 72, 32);
+	// renderWallsBrick(wallsBrickTiles, 4, 348, 234, 78, 64);
+
+	// Vertical
+	renderWalls(walls3Dtiles, 2, 412, 190, 32, 32);
+	for(let i = 222; i <= 256; i=i+32) {
+		renderWalls(walls3Dtiles, 1, 412, i, 32, 32);
+	}
+	renderWalls(walls3Dtiles, 0, 412, 286, 32, 32);
+	// renderWallsBrick(wallsBrickTiles, 0, 414, 192, 12, 64); // Vertical
+
+	// renderWallsBrick(wallsBrickTiles, 3, 630, 190, 70, 64);
+
+	// Horizontal
+	renderWalls(walls3Dtiles, 5, 0, 419, 32, 32);
+	for(let i = 32; i <= canvasWidth-178; i=i+32) {
+		renderWalls(walls3Dtiles, 3, i, 419, 32, 32);
+	}
+	renderWalls(walls3Dtiles, 4, 512, 419, 32, 32);
+	// renderWallsBrick(wallsBrickTiles, 2, 0, 355, 72, 64);
+	// for(let i = 72; i <= canvasWidth-178; i=i+56) {
+	// 	renderWallsBrick(wallsBrickTiles, 1, i, 357, 56, 62);
+	// }
+	// renderWallsBrick(wallsBrickTiles, 3, 522, 355, 70, 64);
+
+	// Vertical
+	renderWalls(walls3Dtiles, 1, 512, 451, 32, 32);
+	renderWalls(walls3Dtiles, 0, 512, 483, 32, 32);
+	// renderWallsBrick(wallsBrickTiles, 0, 580, 355, 12, 64); // Vertical
+	// renderWallsBrick(wallsBrickTiles, 0, 580, 419, 12, 64); // Vertical
+
+	// Horizontal
+	renderWalls(walls3Dtiles, 5, 0, 515, 32, 32);
+	for(let i = 32; i <= canvasWidth-178; i=i+32) {
+		renderWalls(walls3Dtiles, 3, i, 515, 32, 32);
+	}
+	renderWalls(walls3Dtiles, 4, 512, 515, 32, 32);
+	// renderWallsBrick(wallsBrickTiles, 2, 108, 483, 72, 64);
+	// for(let i = 180; i <= canvasWidth-178; i=i+56) {
+	// 	renderWallsBrick(wallsBrickTiles, 1, i, 485, 56, 62);
+	// }
+	// renderWallsBrick(wallsBrickTiles, 3, 522, 483, 70, 64);
 
 	// Cápsula
 	xCapsule = (canvasWidth/2) - 27.5;
@@ -2178,11 +2251,58 @@ const walls3 = [
 	}
 ];
 
+const button_pressing = new Audio();
+button_pressing.src = '../assets/effects/button.mp3';
+
+let death;
+let enemy2dead = false;
+
+function buttonPress() {
+	if(enemy2dead) {
+		return;
+	}
+	if((positionX+characterWidth/2 > xButton && positionX+characterWidth/2 < xButton+30) && (positionY+characterHeight < yButton + 30 && positionY+characterHeight > yButton)) {
+		button_pressing.play();
+		enemy2dead = true;
+		clearInterval(enemy2Move);
+		// death = setInterval(deathAnimation, 80);
+
+		// renderBackground(backgroundTiles, 0, positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
+
+		// ctx.drawImage(frames_death_red[deathAnimationIndex], positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
+
+		// deathAnimationIndex++;
+
+		// if(deathAnimationIndex >= 6) {
+		// 	deathAnimationIndex = 0;
+		// }
+
+		setTimeout( () => {
+			button_pressing.pause();
+			button_pressing.currentTime = 0;
+		}, 500);
+
+		setTimeout(()=>{
+			// renderBackground(backgroundTiles, 0, positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
+			death = setInterval(deathAnimation, 80);
+		}, 1000);
+
+
+		setTimeout(()=>{
+			clearInterval(death);
+			positionYenemy2 = 800;
+
+			// renderBackground(backgroundTiles, 0, positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
+		}, 1480);
+	}
+}
+
 /* NAVE */
 const part3 = document.createElement('img');
 part3.src = '../assets/imgs/ship1/parts/ship1_nose.png';
 
 /* ENEMIGO ROJO */
+// Caminar a la derecha
 const frame1red = new Image();
 frame1red.src = '../assets/imgs/red-alien/walk/red__0006_walk_1.png';
 
@@ -2195,17 +2315,17 @@ frame3red.src = '../assets/imgs/red-alien/walk/red__0008_walk_3.png';
 const frame4red = new Image();
 frame4red.src = '../assets/imgs/red-alien/walk/red__0009_walk_4.png';
 
-const frame5red = new Image(); 
-frame5red.src = './assets/imgs/red-alien/walk/red__0010_walk_5.png';
+const frame5red = new Image();
+frame5red.src = '../assets/imgs/red-alien/walk/red__0010_walk_5.png';
 
-const frame6red = new Image(); 
+const frame6red = new Image();
 frame6red.src = '../assets/imgs/red-alien/walk/red__0011_walk_6.png';
 
 // Caminar hacia la izquierda
-const frame1red_left = new Image(); 
+const frame1red_left = new Image();
 frame1red_left.src = '../assets/imgs/red-alien/walk/red__0006_walk_1_left.png';
 
-const frame2red_left = new Image(); 
+const frame2red_left = new Image();
 frame2red_left.src = '../assets/imgs/red-alien/walk/red__0007_walk_2_left.png';
 
 const frame3red_left = new Image();
@@ -2220,8 +2340,69 @@ frame5red_left.src = '../assets/imgs/red-alien/walk/red__0010_walk_5_left.png';
 const frame6red_left = new Image();
 frame6red_left.src = '../assets/imgs/red-alien/walk/red__0011_walk_6_left.png';
 
-function startLevel3(timeIntervalHeroe, timeIntervalEnemy1, timeIntervalEnemy2) {
+// Morir
+const frame1dead = new Image();
+frame1dead.src = '../assets/imgs/red-alien/die/red__0022_dead_1.png';
+
+const frame2dead = new Image();
+frame2dead.src = '../assets/imgs/red-alien/die/red__0023_dead_2.png';
+
+const frame3dead = new Image();
+frame3dead.src = '../assets/imgs/red-alien/die/red__0024_dead_3.png';
+
+const frame4dead = new Image();
+frame4dead.src = '../assets/imgs/red-alien/die/red__0025_dead_4.png';
+
+const frame5dead = new Image();
+frame5dead.src = '../assets/imgs/red-alien/die/red__0026_dead_5.png';
+
+let frames_death_red = [frame1dead, frame2dead, frame3dead, frame4dead, frame5dead];
+
+let deathAnimationIndex = 0;
+
+function deathAnimation() {
+	ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+
+	layout3();
+	shipPart(posXship, posYship);
+	shipPartDisappear();
+	levelWin();
+
+	ctx.drawImage(frames_death_red[deathAnimationIndex], positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
+
+	deathAnimationIndex++;
+
+	if(deathAnimationIndex >= 5) {
+		// deathAnimationIndex = 0;
+		return;
+	}
 	
+	// Renderizo también al personaje
+	if(movingRight) {
+		ctx.drawImage(sprite, framesWalking["right"][animationIndex].x, framesWalking["right"][animationIndex].y, framesWalking["right"][animationIndex].width, framesWalking["right"][animationIndex].height, positionX, positionY, characterWidth, characterHeight);
+	} else if(movingUp) {
+		ctx.drawImage(sprite, framesWalking["up"][animationIndex].x, framesWalking["up"][animationIndex].y, framesWalking["up"][animationIndex].width, framesWalking["up"][animationIndex].height, positionX, positionY, characterWidth, characterHeight);
+	} else if(movingLeft) {
+		ctx.drawImage(sprite, framesWalking["left"][animationIndex].x, framesWalking["left"][animationIndex].y, framesWalking["left"][animationIndex].width, framesWalking["left"][animationIndex].height, positionX, positionY, characterWidth, characterHeight);
+	} else if(movingDown) {
+		ctx.drawImage(sprite, framesWalking["down"][animationIndex].x, framesWalking["down"][animationIndex].y, framesWalking["down"][animationIndex].width, framesWalking["down"][animationIndex].height, positionX, positionY, characterWidth, characterHeight);
+	} else {
+		ctx.drawImage(sprite, framesWalking["down"]["0"].x, framesWalking["down"]["0"].y, framesWalking["down"]["0"].width, framesWalking["down"]["0"].height, positionX, positionY, characterWidth, characterHeight);
+	}
+
+	// Renderizo también al enemigo 1 en la posición que tiene
+	if(animationIndexEnemy >= 5) {
+		animationIndexEnemy = 0
+	}
+	if(borderPosition == 'left') {
+		ctx.drawImage(framesEnemy[animationIndexEnemy], positionXenemy, positionYenemy, enemyWidth, enemyHeight);
+	} else if(borderPosition == 'right') {
+		ctx.drawImage(framesEnemyLeft[animationIndexEnemy], positionXenemy, positionYenemy, enemyWidth, enemyHeight);
+	}
+}
+
+function startLevel3(timeIntervalHeroe, timeIntervalEnemy1, timeIntervalEnemy2) {
+
 	level_p.innerHTML = sublevel+1;
 
 	level_1_completed = false;
@@ -2232,6 +2413,8 @@ function startLevel3(timeIntervalHeroe, timeIntervalEnemy1, timeIntervalEnemy2) 
 	shipHeight = (ships[level].parts[sublevel].height)*1.1;
 
 	partTaken = false;
+
+	enemy2dead = false;
 
 	// Posición inicial del héroe sobre el canvas
 	positionX = 10;
