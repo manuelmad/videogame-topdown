@@ -142,19 +142,6 @@ const renderCapsule = (tileType, capsuleIndex, posX, posY, width, height) => {
 	ctx.drawImage(capsule, backgroundTile.x, backgroundTile.y, backgroundTile.width, backgroundTile.height, bkgdX, bkgdY, width, height);
 }
 
-/* CAÑÓN */
-let xCannon;
-let yCannon;
-let widthCannon;
-let heightCannon;
-
-const renderCannon = (tileType, cannonIndex, posX, posY, width, height) => {
-	const tileType_ = tileType;
-	const backgroundTile = tileType_[cannonIndex];
-	const bkgdX = posX;
-	const bkgdY = posY;
-	ctx.drawImage(cannon, backgroundTile.x, backgroundTile.y, backgroundTile.width, backgroundTile.height, bkgdX, bkgdY, width, height);
-}
 
 /* BOTÓN */
 let xButton;
@@ -354,11 +341,12 @@ function shipPartDisappear() {
 			}, 2000);
 			audio_part.currentTime = 0;
 
-			notifications.innerText = "Has recuperado una pieza de la nave! Puedes pasar al siguiente nivel!";
+			notifications.style.color = "#80FB03";
+			notifications.innerText = "¡Has recuperado una pieza de la nave! Puedes pasar al siguiente nivel!";
 
 			setTimeout(()=>{
 				notifications.innerText = "";
-			}, 4000)
+			}, 3000)
 		}
 		// Desaparece la parte de la nave porque se renderiza una porción de suelo encima
 		if(sublevel == 0) {
@@ -403,7 +391,8 @@ function levelWin() {
 
 			audio_active= false;
 
-			notifications.innerText = "Has superado el nivel!!";
+			notifications.style.color = "#80FB03";
+			notifications.innerText = "¡Has superado el nivel!";
 
 			setTimeout(()=> {
 				audio_level_win.pause();
@@ -423,11 +412,14 @@ function levelWin() {
 					framesEnemy2 = [frame1red, frame2red, frame3red, frame4red, frame5red, frame6red];
 
 					startLevel3(80, 140, 100);
+				} else if(sublevel == 3) {
+					finishGame();
 				}
 
 			}, 2000);
 
 		} else {
+			notifications.style.color = "#c40d24";
 			notifications.innerText = "No has obtenido la parte de la nave necesaria para superar este nivel.";
 
 			audio_not_win_yet.play();
@@ -440,7 +432,7 @@ function levelWin() {
 
 			setTimeout(()=>{
 				notifications.innerText = "";
-			}, 4000)
+			}, 3000)
 		}
 	}
 }
@@ -685,9 +677,9 @@ function moveUp() {
 	if(animationIndexEnemy2 >= 5) {
 		animationIndexEnemy2 = 0
 	}
-	if(!enemy2dead) {
-		ctx.drawImage(framesEnemy2[animationIndexEnemy2], positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
-	}
+
+	ctx.drawImage(framesEnemy2[animationIndexEnemy2], positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
+
 	// ctx.drawImage(framesEnemy2[animationIndexEnemy2], positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
 
 	// Renderizo a la bala
@@ -740,10 +732,9 @@ function moveDown() {
 	if(animationIndexEnemy2 >= 5) {
 		animationIndexEnemy2 = 0
 	}
-	if(!enemy2dead) {
-		ctx.drawImage(framesEnemy2[animationIndexEnemy2], positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
-	}
-	// ctx.drawImage(framesEnemy2[animationIndexEnemy2], positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
+
+	ctx.drawImage(framesEnemy2[animationIndexEnemy2], positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
+
 
 	// Renderizo a la bala
 	//ctx.drawImage(asteroid, xFixed, positionYenemyBullet, enemyBulletsWidth, enemyBulletsHeight);
@@ -796,10 +787,9 @@ function moveLeft() {
 	if(animationIndexEnemy2 >= 5) {
 		animationIndexEnemy2 = 0
 	}
-	if(!enemy2dead) {
-		ctx.drawImage(framesEnemy2[animationIndexEnemy2], positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
-	}
-	// ctx.drawImage(framesEnemy2[animationIndexEnemy2], positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
+
+	ctx.drawImage(framesEnemy2[animationIndexEnemy2], positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
+
 
 	// Renderizo a la bala
 	//ctx.drawImage(asteroid, xFixed, positionYenemyBullet, enemyBulletsWidth, enemyBulletsHeight);
@@ -849,10 +839,8 @@ function moveRight() {
 	if(animationIndexEnemy2 >= 5) {
 		animationIndexEnemy2 = 0
 	}
-	if(!enemy2dead) {
-		ctx.drawImage(framesEnemy2[animationIndexEnemy2], positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
-	}
-	// ctx.drawImage(framesEnemy2[animationIndexEnemy2], positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
+
+	ctx.drawImage(framesEnemy2[animationIndexEnemy2], positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
 
 	// Renderizo a la bala
 	//ctx.drawImage(asteroid, xFixed, positionYenemyBullet, enemyBulletsWidth, enemyBulletsHeight);
@@ -923,6 +911,8 @@ function moveCharacter() {
 		collisionWalls(walls);
 	} else if(sublevel == 1) {
 		collisionWalls(walls2);
+	} else if(sublevel == 2) {
+		collisionWalls(walls3);
 	}
 
 
@@ -1058,9 +1048,9 @@ function moveLeftEnemy() {
 		if(animationIndexEnemy2 >= 5) {
 			animationIndexEnemy2 = 0
 		}
-		if(!enemy2dead) {
-			ctx.drawImage(framesEnemy2[animationIndexEnemy2], positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
-		}
+
+		ctx.drawImage(framesEnemy2[animationIndexEnemy2], positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
+
 		// ctx.drawImage(framesEnemy2[animationIndexEnemy2], positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
 
 		// Renderizo a la bala
@@ -1128,9 +1118,9 @@ function moveRightenemy() {
 		if(animationIndexEnemy2 >= 5) {
 			animationIndexEnemy2 = 0
 		}
-		if(!enemy2dead) {
-			ctx.drawImage(framesEnemy2[animationIndexEnemy2], positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
-		}
+
+		ctx.drawImage(framesEnemy2[animationIndexEnemy2], positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
+
 		// ctx.drawImage(framesEnemy2[animationIndexEnemy2], positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
 
 		// Renderizo a la bala
@@ -1191,10 +1181,7 @@ function moveUpEnemy() {
 		clearInterval(enemy2Move);
 		return;
 	}
-	if(enemy2dead) {
-		//renderBackground(backgroundTiles, 0, positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
-		return;
-	}
+
 	positionXenemy2 = positionXenemy2;
 	ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
@@ -1264,10 +1251,7 @@ function moveDownEnemy() {
 		clearInterval(enemy2Move);
 		return;
 	}
-	if(enemy2dead) {
-		//renderBackground(backgroundTiles, 0, positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
-		return;
-	}
+
 	positionXenemy2 = positionXenemy2;
 
 	ctx.clearRect(0, 0, canvasWidth, canvasHeight);
@@ -1439,10 +1423,8 @@ function collisionCheck() {
 			audio_background.currentTime = 0;
 
 			const notifications = document.getElementById('notifications');
-			notifications.innerText = "Capturado por un alienígena! Vuelve a intentarlo!";
-			// setTimeout(()=>{
-			// 	notifications.innerText = "";
-			// }, 3000)
+			notifications.style.color = "#c40d24";
+			notifications.innerText = "¡Capturado por un alienígena! ¡Vuelve a intentarlo!";
 
 			// Reproducir sonido cuando colisiona con elenemigo
 			audio_collision.play();
@@ -1457,6 +1439,7 @@ function collisionCheck() {
 				collision = false;
 
 				notifications.innerText = "";
+
 				// Reiniciar heroe
 				animationIndex = 0;
 				if(sublevel == 0) {
@@ -1535,9 +1518,6 @@ let collision2 = false;
 
 function collisionCheck2() {
 	// Alien 2
-	if(enemy2dead) {
-		return;
-	}
 	if((positionXenemy2 < positionX+characterWidth-10) && (positionXenemy2+enemyWidth2-10)>positionX) {
 		if(((positionYenemy2+enemyHeight2-5)>positionY) && (positionYenemy2 < (positionY+characterHeight-5))) {
 			collision2 = true;
@@ -1554,10 +1534,8 @@ function collisionCheck2() {
 			audio_collision.currentTime = 0;
 
 			const notifications = document.getElementById('notifications');
-			notifications.innerText = "Capturado por un alienígena! Vuelve a intentarlo!";
-			// setTimeout(()=>{
-			// 	notifications.innerText = "";
-			// }, 3000)
+			notifications.style.color = "#c40d24";
+			notifications.innerText = "¡Capturado por un alienígena! ¡Vuelve a intentarlo!";
 
 			// Espera 3 segundos para reinicair juego
 			setTimeout(() => {
@@ -1735,13 +1713,7 @@ start_button.addEventListener('click', ()=> {
 	// Limpio el contenedor de partes de nave
 	ship_part_container.innerHTML = "";
 
-	//if(first_start) {
-		startGame(80, 140, 100);
-	//} else {
-		//startGame(80**2, 140**2, 100**2);
-	//}
-	//first_start = false;
-
+	startGame(80, 140, 100);
 });
 
 
@@ -2021,7 +1993,8 @@ function explosionsActivator() {
 			audio_explosion.currentTime = 0;
 
 			const notifications = document.getElementById('notifications');
-			notifications.innerText = "Has pisado una mina! Vuelve a intentarlo!";
+			notifications.style.color = "#c40d24";
+			notifications.innerText = "¡Has pisado una mina! ¡Vuelve a intentarlo!";
 			setTimeout(()=>{
 				notifications.innerText = "";
 			}, 3000)
@@ -2056,7 +2029,14 @@ function explosionsActivator() {
 				animationIndexExplosion = 0;
 
 				// Reinicar el nivel
-				startLevel2(80, 140, 100);
+				if(sublevel == 0) {
+					startGame(80, 140, 100);
+				} else if(sublevel == 1){
+					startLevel2(80, 140, 100);
+				} else if(sublevel == 2) {
+					startLevel3(80, 140, 100);
+				}
+
 
 			}, 3000);
 		}
@@ -2101,12 +2081,6 @@ const layout3 = () => {
 	}
 	renderWalls(walls3Dtiles, 4, 592, 80, 32, 32);
 
-	// renderWallsBrick(wallsBrickTiles, 2, 0, 80, 72, 64);
-	// for(let i = 72; i <= canvasWidth-178; i=i+56) {
-	// 	renderWallsBrick(wallsBrickTiles, 1, i, 82, 56, 62);
-	// }
-	// renderWallsBrick(wallsBrickTiles, 3, 522, 80, 70, 64);
-
 	// Horizontal
 	renderWalls(walls3Dtiles, 5, 108, 190, 32, 32);
 	for(let i = 140; i <= 316; i=i+32) {
@@ -2117,11 +2091,6 @@ const layout3 = () => {
 	}
 	renderWalls(walls3Dtiles, 4, 668, 190, 32, 32);
 
-	// renderWallsBrick(wallsBrickTiles, 2, 108, 190, 72, 64);
-	// for(let i = 180; i <= canvasWidth-70; i=i+56) {
-	// 	renderWallsBrick(wallsBrickTiles, 1, i, 192, 56, 62);
-	// }
-
 	// Vertical
 	renderWalls(walls3Dtiles, 2, 316, 190, 32, 32);
 	for(let i = 222; i <= 256; i=i+32) {
@@ -2129,11 +2098,8 @@ const layout3 = () => {
 	}
 	renderWalls(walls3Dtiles, 0, 316, 286, 32, 32);
 
-	// renderWallsBrick(wallsBrickTiles, 0, 348, 192, 12, 64); // Vertical
-
 	// Horizontal
 	renderWalls(walls3Dtiles, 3, 344, 286, 72, 32);
-	// renderWallsBrick(wallsBrickTiles, 4, 348, 234, 78, 64);
 
 	// Vertical
 	renderWalls(walls3Dtiles, 2, 412, 190, 32, 32);
@@ -2141,9 +2107,6 @@ const layout3 = () => {
 		renderWalls(walls3Dtiles, 1, 412, i, 32, 32);
 	}
 	renderWalls(walls3Dtiles, 0, 412, 286, 32, 32);
-	// renderWallsBrick(wallsBrickTiles, 0, 414, 192, 12, 64); // Vertical
-
-	// renderWallsBrick(wallsBrickTiles, 3, 630, 190, 70, 64);
 
 	// Horizontal
 	renderWalls(walls3Dtiles, 5, 0, 419, 32, 32);
@@ -2151,43 +2114,26 @@ const layout3 = () => {
 		renderWalls(walls3Dtiles, 3, i, 419, 32, 32);
 	}
 	renderWalls(walls3Dtiles, 4, 512, 419, 32, 32);
-	// renderWallsBrick(wallsBrickTiles, 2, 0, 355, 72, 64);
-	// for(let i = 72; i <= canvasWidth-178; i=i+56) {
-	// 	renderWallsBrick(wallsBrickTiles, 1, i, 357, 56, 62);
-	// }
-	// renderWallsBrick(wallsBrickTiles, 3, 522, 355, 70, 64);
 
 	// Vertical
-	renderWalls(walls3Dtiles, 1, 512, 451, 32, 32);
-	renderWalls(walls3Dtiles, 0, 512, 483, 32, 32);
-	// renderWallsBrick(wallsBrickTiles, 0, 580, 355, 12, 64); // Vertical
-	// renderWallsBrick(wallsBrickTiles, 0, 580, 419, 12, 64); // Vertical
+	renderWalls(walls3Dtiles, 1, 512, 451, 32, 64);
+	renderWalls(walls3Dtiles, 0, 512, 515, 32, 32);
+
 
 	// Horizontal
-	renderWalls(walls3Dtiles, 5, 0, 515, 32, 32);
-	for(let i = 32; i <= canvasWidth-178; i=i+32) {
-		renderWalls(walls3Dtiles, 3, i, 515, 32, 32);
+	renderWalls(walls3Dtiles, 5, 108, 547, 32, 32);
+	for(let i = 140; i <= canvasWidth-178; i=i+32) {
+		renderWalls(walls3Dtiles, 3, i, 547, 32, 32);
 	}
-	renderWalls(walls3Dtiles, 4, 512, 515, 32, 32);
-	// renderWallsBrick(wallsBrickTiles, 2, 108, 483, 72, 64);
-	// for(let i = 180; i <= canvasWidth-178; i=i+56) {
-	// 	renderWallsBrick(wallsBrickTiles, 1, i, 485, 56, 62);
-	// }
-	// renderWallsBrick(wallsBrickTiles, 3, 522, 483, 70, 64);
+	renderWalls(walls3Dtiles, 4, 512, 547, 32, 32);
+
 
 	// Cápsula
 	xCapsule = (canvasWidth/2) - 27.5;
-	yCapsule = 370;
+	yCapsule = 447;
 	widthCapsule = 55;
 	heightCapsule = 106;
 	renderCapsule(capsuleSprites, 0, xCapsule, yCapsule, widthCapsule, heightCapsule);
-
-	// Cannon
-	xCannon = canvasWidth - 125;
-	yCannon = canvasHeight - 100;
-	widthCannon = 120;
-	heightCannon = 66;
-	renderCannon(cannonSprites, 0, xCannon, yCannon, widthCannon, heightCannon);
 
 	// Botón
 	xButton = canvasWidth - 60;
@@ -2202,98 +2148,76 @@ const layout3 = () => {
 const walls3 = [
 	// Horizontales
 	wall_h1 = {
-		x: 361,
-		y: 145,
-		width: 339,
+		x: 0,
+		y: 80,
+		width: 624,
 		height: 32
 	},
 	wall_h2 = {
-		x: 100,
-		y: 400,
-		width: 382,
+		x: 108,
+		y: 190,
+		width: 224,
 		height: 32
 	},
 	wall_h3 = {
-		x: 100,
-		y: 550,
-		width: 252,
+		x: 440,
+		y: 190,
+		width: 260,
 		height: 32
 	},
 	wall_h4 = {
-		x: 424,
-		y: 550,
-		width: 208,
+		x: 344,
+		y: 286,
+		width: 72,
+		height: 32
+	},
+	wall_h5 = {
+		x: 0,
+		y: 419,
+		width: 544,
+		height: 32
+	},
+	wall_h6 = {
+		x: 108,
+		y: 547,
+		width: 436,
 		height: 32
 	},
 	wall_v1 = {
-		x: 100,
-		y: 0,
+		x: 316,
+		y: 190,
 		width: 32,
-		height: 550
+		height: 128
 	},
 	wall_v2 = {
-		x: 452,
-		y: 250,
+		x: 412,
+		y: 190,
 		width: 32,
-		height: 118
+		height: 128
 	},
 	wall_v3 = {
-		x: 600,
-		y: 250,
+		x: 512,
+		y: 451,
 		width: 32,
-		height: 118
-	},
-	wall_v4 = {
-		x: 600,
-		y: 432,
-		width: 32,
-		height: 118
+		height: 93
 	}
 ];
 
 const button_pressing = new Audio();
 button_pressing.src = '../assets/effects/button.mp3';
 
-let death;
-let enemy2dead = false;
 
 function buttonPress() {
-	if(enemy2dead) {
-		return;
-	}
+
 	if((positionX+characterWidth/2 > xButton && positionX+characterWidth/2 < xButton+30) && (positionY+characterHeight < yButton + 30 && positionY+characterHeight > yButton)) {
 		button_pressing.play();
-		enemy2dead = true;
+
 		clearInterval(enemy2Move);
-		// death = setInterval(deathAnimation, 80);
-
-		// renderBackground(backgroundTiles, 0, positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
-
-		// ctx.drawImage(frames_death_red[deathAnimationIndex], positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
-
-		// deathAnimationIndex++;
-
-		// if(deathAnimationIndex >= 6) {
-		// 	deathAnimationIndex = 0;
-		// }
 
 		setTimeout( () => {
 			button_pressing.pause();
 			button_pressing.currentTime = 0;
 		}, 500);
-
-		setTimeout(()=>{
-			// renderBackground(backgroundTiles, 0, positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
-			death = setInterval(deathAnimation, 80);
-		}, 1000);
-
-
-		setTimeout(()=>{
-			clearInterval(death);
-			positionYenemy2 = 800;
-
-			// renderBackground(backgroundTiles, 0, positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
-		}, 1480);
 	}
 }
 
@@ -2340,66 +2264,6 @@ frame5red_left.src = '../assets/imgs/red-alien/walk/red__0010_walk_5_left.png';
 const frame6red_left = new Image();
 frame6red_left.src = '../assets/imgs/red-alien/walk/red__0011_walk_6_left.png';
 
-// Morir
-const frame1dead = new Image();
-frame1dead.src = '../assets/imgs/red-alien/die/red__0022_dead_1.png';
-
-const frame2dead = new Image();
-frame2dead.src = '../assets/imgs/red-alien/die/red__0023_dead_2.png';
-
-const frame3dead = new Image();
-frame3dead.src = '../assets/imgs/red-alien/die/red__0024_dead_3.png';
-
-const frame4dead = new Image();
-frame4dead.src = '../assets/imgs/red-alien/die/red__0025_dead_4.png';
-
-const frame5dead = new Image();
-frame5dead.src = '../assets/imgs/red-alien/die/red__0026_dead_5.png';
-
-let frames_death_red = [frame1dead, frame2dead, frame3dead, frame4dead, frame5dead];
-
-let deathAnimationIndex = 0;
-
-function deathAnimation() {
-	ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-
-	layout3();
-	shipPart(posXship, posYship);
-	shipPartDisappear();
-	levelWin();
-
-	ctx.drawImage(frames_death_red[deathAnimationIndex], positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
-
-	deathAnimationIndex++;
-
-	if(deathAnimationIndex >= 5) {
-		// deathAnimationIndex = 0;
-		return;
-	}
-	
-	// Renderizo también al personaje
-	if(movingRight) {
-		ctx.drawImage(sprite, framesWalking["right"][animationIndex].x, framesWalking["right"][animationIndex].y, framesWalking["right"][animationIndex].width, framesWalking["right"][animationIndex].height, positionX, positionY, characterWidth, characterHeight);
-	} else if(movingUp) {
-		ctx.drawImage(sprite, framesWalking["up"][animationIndex].x, framesWalking["up"][animationIndex].y, framesWalking["up"][animationIndex].width, framesWalking["up"][animationIndex].height, positionX, positionY, characterWidth, characterHeight);
-	} else if(movingLeft) {
-		ctx.drawImage(sprite, framesWalking["left"][animationIndex].x, framesWalking["left"][animationIndex].y, framesWalking["left"][animationIndex].width, framesWalking["left"][animationIndex].height, positionX, positionY, characterWidth, characterHeight);
-	} else if(movingDown) {
-		ctx.drawImage(sprite, framesWalking["down"][animationIndex].x, framesWalking["down"][animationIndex].y, framesWalking["down"][animationIndex].width, framesWalking["down"][animationIndex].height, positionX, positionY, characterWidth, characterHeight);
-	} else {
-		ctx.drawImage(sprite, framesWalking["down"]["0"].x, framesWalking["down"]["0"].y, framesWalking["down"]["0"].width, framesWalking["down"]["0"].height, positionX, positionY, characterWidth, characterHeight);
-	}
-
-	// Renderizo también al enemigo 1 en la posición que tiene
-	if(animationIndexEnemy >= 5) {
-		animationIndexEnemy = 0
-	}
-	if(borderPosition == 'left') {
-		ctx.drawImage(framesEnemy[animationIndexEnemy], positionXenemy, positionYenemy, enemyWidth, enemyHeight);
-	} else if(borderPosition == 'right') {
-		ctx.drawImage(framesEnemyLeft[animationIndexEnemy], positionXenemy, positionYenemy, enemyWidth, enemyHeight);
-	}
-}
 
 function startLevel3(timeIntervalHeroe, timeIntervalEnemy1, timeIntervalEnemy2) {
 
@@ -2413,8 +2277,6 @@ function startLevel3(timeIntervalHeroe, timeIntervalEnemy1, timeIntervalEnemy2) 
 	shipHeight = (ships[level].parts[sublevel].height)*1.1;
 
 	partTaken = false;
-
-	enemy2dead = false;
 
 	// Posición inicial del héroe sobre el canvas
 	positionX = 10;
@@ -2432,6 +2294,8 @@ function startLevel3(timeIntervalHeroe, timeIntervalEnemy1, timeIntervalEnemy2) 
 
     // Renderizar parte de nave
 	shipPart(posXship, posYship);
+
+	// Funciones de Estado
 	shipPartDisappear();
 	levelWin();
 	buttonPress();
@@ -2462,13 +2326,13 @@ function startLevel3(timeIntervalHeroe, timeIntervalEnemy1, timeIntervalEnemy2) 
 
 	// Renderizar Enemigo 2
 	animationIndexEnemy2 = 0;
-	movePixelsenemy2 = 30;
+	movePixelsenemy2 = 22;
 
     positionXenemy2 = 366;
-    positionYenemy2 = 522;
+    positionYenemy2 = 579;
     borderPosition2 = 'up';
 
-	enemy2UpLimit = 522;
+	enemy2UpLimit = 579;
 	enemy2DownLimit = 690;
 	ctx.drawImage(framesEnemy2[animationIndexEnemy2], positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
 
@@ -2478,4 +2342,133 @@ function startLevel3(timeIntervalHeroe, timeIntervalEnemy1, timeIntervalEnemy2) 
 	if(collision || collision2 || level_1_completed || exploded) {
 		return;
 	}
+}
+
+/* FINAL DEL JUEGO */
+let planet1Untervale;
+
+// Audio final
+const endingAudio = new Audio();
+endingAudio.src = "../assets/effects/Finale.ogg";
+
+// Función general
+function finishGame() {
+	// Muesta mensaje final
+	final_message.style.display = "block";
+	thanks_message.style.display = "block";
+
+	// Activa múscica final
+	endingAudio.play();
+	endingAudio.loop = true;
+	endingAudio.volume = 0.8;
+
+	// Quita nombre de clase del contenedor que tiene el logo de planeta geek
+	const canvasContainer = document.getElementById("canvas_container");
+	canvasContainer.classList.remove("canvas-container");
+	
+	// Desactiva le botón de reinicio del juego
+	const start_btn = document.getElementById("start_btn");
+	start_btn.disabled = true;
+
+	// Mensaje de Victoria
+	const notifications = document.getElementById('notifications');
+	notifications.style.color = "#80FB03";
+	notifications.innerText = "¡Has Superado el Juego! ¡Felicidades!";
+
+	// Renderizo la nave
+	ctx.drawImage(completeShip, xCompleteShip, yCompleteShip, widthCompleteShip, heightCompleteShip);
+
+	// Renderizo el fuego de propulsión
+	ctx.drawImage(exhaustAnimationArray[exhaustAnimationIndex], exhaustX, exhaustY, exhaustX, exhaustY);
+	setInterval(exhaustAnimation, 100);
+
+	// Renderizo el planeta
+	ctx.drawImage(planet1, xPlanet1, yPlanet1, planet1Width, planet1Height);
+	planet1Untervale = setInterval(planet1Moving, 100);
+
+	if(xPlanet1 < -100) {
+		clearInterval(planet1Untervale);
+	}
+}
+
+const final_message = document.getElementById("final_message");
+final_message.innerHTML = "Nuestro héroe ha conseguido todas las partes de su nave y ha logrado escapar de este planeta hostil. ¡Rumbo a casa! Rumbo al planeta...¡GEEK!";
+
+const thanks_message = document.getElementById("thanks");
+thanks_message.innerHTML = "¡Gracias por jugar!";
+
+const completeShip = new Image();
+completeShip.src = "../assets/imgs/ship1/Ship1.png";
+
+let xCompleteShip = (canvasWidth/2)-64;
+let yCompleteShip = (canvasHeight/2)-64;
+let widthCompleteShip = 128;
+let heightCompleteShip= 128;
+
+const exhaust_frame1 = new Image();
+exhaust_frame1.src = "../assets/imgs/ship1/Exhaust1/exhaust1.png";
+
+const exhaust_frame2 = new Image();
+exhaust_frame2.src = "../assets/imgs/ship1/Exhaust1/exhaust2.png";
+
+const exhaust_frame3 = new Image();
+exhaust_frame3.src = "../assets/imgs/ship1/Exhaust1/exhaust3.png";
+
+const exhaust_frame4 = new Image();
+exhaust_frame4.src = "../assets/imgs/ship1/Exhaust1/exhaust4.png";
+
+let exhaustAnimationArray = [exhaust_frame1, exhaust_frame2, exhaust_frame3, exhaust_frame4];
+let exhaustAnimationIndex = 0;
+
+let exhaustWidth = 64;
+let exhaustHeight = 64;
+let exhaustX = xCompleteShip - exhaustWidth;
+let exhaustY = yCompleteShip + heightCompleteShip/2 - exhaustHeight/2;
+
+function exhaustAnimation() {
+	ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+
+	if(xPlanet1 < -100) {
+		clearInterval(planet1Untervale);
+	}
+
+	// Renderizo la nave
+	ctx.drawImage(completeShip, xCompleteShip, yCompleteShip, widthCompleteShip, heightCompleteShip);
+
+	// Renederizo al planeta
+	ctx.drawImage(planet1, xPlanet1, yPlanet1, planet1Width, planet1Height);
+
+	// Animo el fuego
+	exhaustAnimationIndex++
+	if(exhaustAnimationIndex >= 3) {
+		exhaustAnimationIndex = 0
+	}
+	ctx.drawImage(exhaustAnimationArray[exhaustAnimationIndex], exhaustX, exhaustY, exhaustWidth, exhaustHeight);
+}
+
+const planet1 = new Image();
+planet1.src = "../assets/imgs/planets/Airless_01-512x512.png";
+
+let xPlanet1 = 750;
+let yPlanet1 = 200;
+
+let planet1Width = 100;
+let planet1Height = 100;
+
+let planet1MovingPixels = 10;
+
+function planet1Moving() {
+	ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+
+	// Renderizo la nave
+	ctx.drawImage(completeShip, xCompleteShip, yCompleteShip, widthCompleteShip, heightCompleteShip);
+
+	// Renderizo el fuego
+	ctx.drawImage(exhaustAnimationArray[exhaustAnimationIndex], exhaustX, exhaustY, exhaustWidth, exhaustHeight);
+	
+	// Animo el planeta
+	xPlanet1 = xPlanet1 - planet1MovingPixels;
+	console.log(xPlanet1);
+
+	ctx.drawImage(planet1, xPlanet1, yPlanet1, planet1Width, planet1Height);
 }

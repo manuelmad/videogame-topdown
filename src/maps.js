@@ -230,43 +230,80 @@ const explosionTiles = {
   }
 };
 
-const wallsBrick = new Image();
-wallsBrick.src = '../assets/imgs/backgrounds/rpg-indoor-tileset-expansion-trans.png';
+const electricFenceSprite = new Image();
+electricFenceSprite.src = '../assets/imgs/backgrounds/electric_fence_sprite_sheet.png';
 
-const wallsBrickTiles = {
+const electricFenceTiles = {
   "0": {
-    name: "vertical sin extremos",
     x: 0,
     y: 0,
-    width: 6,
-    height: 64
+    width: 96,
+    height: 96
   },
   "1": {
-    name: "horizontal sin extremos",
-    x: 1,
-    y: 65,
-    width: 26,
-    height: 30
+    x: 96,
+    y: 0,
+    width: 96,
+    height: 96
   },
   "2": {
-    name: "extremo izquierdo horizontal",
-    x: 28,
-    y: 64,
-    width: 36,
-    height: 32
+    x: 192,
+    y: 0,
+    width: 96,
+    height: 96
   },
   "3": {
-    name: "extremo derecho horizontal",
-    x: 1,
-    y: 64,
-    width: 35,
-    height: 32
+    x: 288,
+    y: 0,
+    width: 96,
+    height: 96
   },
   "4": {
-    name: "pared completa",
-    x: 28,
-    y: 64,
-    width: 56,
-    height: 32
+    x: 384,
+    y: 0,
+    width: 96,
+    height: 96
+  },
+  "5": {
+    x: 480,
+    y: 0,
+    width: 96,
+    height: 96
+  },
+  "6": {
+    x: 576,
+    y: 0,
+    width: 96,
+    height: 96
+  },
+  "7": {
+    x: 672,
+    y: 0,
+    width: 96,
+    height: 96
+  },
+  "8": {
+    x: 768,
+    y: 0,
+    width: 96,
+    height: 96
+  },
+  "9": {
+    x: 864,
+    y: 0,
+    width: 96,
+    height: 96
+  },
+  "10": {
+    x: 960,
+    y: 0,
+    width: 96,
+    height: 96
+  },
+  "11": {
+    x: 1056,
+    y: 0,
+    width: 96,
+    height: 96
   }
 };

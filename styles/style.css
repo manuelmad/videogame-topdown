@@ -6,7 +6,7 @@
 
 @font-face {
     font-family: superMarioBros;
-    src: url('./assets/fonts/Super-Mario-Bros--3.ttf');
+    src: url('../assets/fonts/Super-Mario-Bros--3.ttf');
  }
 
 html {
@@ -48,7 +48,7 @@ html {
 body {
     width: 100%;
     /* background-color: var(--background-article); */
-    background-image: url('./assets//imgs/backgrounds/space.png');
+    background-image: url('../assets/imgs/backgrounds/space.png');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -62,16 +62,52 @@ main {
     position: relative;
     text-align: center;
     padding: 0.8rem;
-    background-image: url('./assets//imgs//backgrounds/logo.png');
+    background-image: url('../assets/imgs/backgrounds/logo.png');
     background-position: center;
     background-repeat: no-repeat;
     overflow: hidden;
 }
 
-/* canvas {
-    border: 0.2rem solid black;
-    background-color: var(--palid-red);
-    border: 0.2rem solid var(--planeta-geek-celeste);
+.backup {
+    position: relative;
+    text-align: center;
+    padding: 0.8rem;
+}
+
+#final_message{
+    width: 60rem;
+    position: absolute;
+    /* font-family: superMarioBros; */
+    letter-spacing: 0.1rem;
+    line-height: 3rem;
+    top: 2rem;
+    text-align: center;
+    display: none;
+    font-size: 2rem;
+    color: var(--planeta-geek-celeste);
+    left: calc(50% - 30rem);
+    /* left:10rem; */
+    z-index: 1;
+}
+
+#thanks {
+    width: 70rem;
+    position: absolute;
+    font-family: superMarioBros;
+    top: 62rem;
+    text-align: center;
+    display: none;
+    font-size: 1.5rem;
+    color: var(--white);
+    /* left: 0; */
+    left: calc(50% - 35rem);
+    z-index: 1;
+    letter-spacing: 0.1rem;
+    text-transform: uppercase;
+}
+/* 
+canvas {
+    font-family: superMarioBros;
 } */
 
 .videogame-word {
