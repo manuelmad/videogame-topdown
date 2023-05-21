@@ -2,19 +2,17 @@ let level = 0;
 let sublevel = 0;
 
 const level_p = document.getElementById('level');
-// level_p.innerHTML = sublevel+1;
 
 const ship_part_container = document.getElementById('ship_parts');
 const part1 = document.createElement('img');
 part1.src = '../assets/imgs/ship1/parts/ship1_body.png';
-// ship_part_container.appendChild(part1);
 
 
 /* configuración del canvas */
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext('2d');
 
-// Dimensiones del heroe sobre el canvas
+// Dimensiones del héroe sobre el canvas
 let characterWidth;
 let characterHeight;
 
@@ -33,29 +31,16 @@ if(tamano_ventana < 700) {
 	canvas.setAttribute("width", 300);
 	canvas.setAttribute("height", 300);
 
-	characterWidth = 30;
-	characterHeight = 45;
+	// characterWidth = 30;
+	// characterHeight = 45;
 
-	enemyWidth = 21;
-	enemyHeight = 31;
+	// enemyWidth = 21;
+	// enemyHeight = 31;
 
-	shipWidth = (ships[level].parts[sublevel].width)*0.8;
-	shipHeight = (ships[level].parts[sublevel].height)*0.8;
+	// shipWidth = (ships[level].parts[sublevel].width)*0.8;
+	// shipHeight = (ships[level].parts[sublevel].height)*0.8;
 }
-else if(tamano_ventana >= 700 && tamano_ventana < 1024) {
-	canvas.setAttribute("width", 500);
-	canvas.setAttribute("height", 500);
-
-	characterWidth = 50;
-	characterHeight = 75;
-
-	enemyWidth = 35;
-	enemyHeight = 53;
-
-	shipWidth = ships[level].parts[sublevel].width;
-	shipHeight = ships[level].parts[sublevel].height;
-}
-else if(tamano_ventana >= 1024) {
+else if(tamano_ventana >= 720) {
 	canvas.setAttribute("width", 700);
 	canvas.setAttribute("height", 700);
 
@@ -68,6 +53,7 @@ else if(tamano_ventana >= 1024) {
 	shipWidth = (ships[level].parts[sublevel].width)*1.1;
 	shipHeight = (ships[level].parts[sublevel].height)*1.1;
 }
+
 
 // Dimensiones del canvas en variables
 const canvasWidth = canvas.width;
@@ -120,14 +106,6 @@ const renderWalls = (tileType, backgroundIndex, posX, posY, width, height) => {
 	ctx.drawImage(walls3D, walls3Dtiles.x, walls3Dtiles.y, walls3Dtiles.width, walls3Dtiles.height, bkgdX, bkgdY, width, height);
 }
 
-const renderWallsBrick = (tileType, backgroundIndex, posX, posY, width, height) => {
-	const tileType_ = tileType;
-	const wallsBrickTiles = tileType_[backgroundIndex];
-	const bkgdX = posX;
-	const bkgdY = posY;
-	ctx.drawImage(wallsBrick, wallsBrickTiles.x, wallsBrickTiles.y, wallsBrickTiles.width, wallsBrickTiles.height, bkgdX, bkgdY, width, height);
-}
-
 /* CÁPSULA */
 let xCapsule;
 let yCapsule;
@@ -156,16 +134,6 @@ const renderButton = (tileType, buttonIndex, posX, posY, width, height) => {
 	const bkgdY = posY;
 	ctx.drawImage(button, backgroundTile.x, backgroundTile.y, backgroundTile.width, backgroundTile.height, bkgdX, bkgdY, width, height);
 }
-
-
-/* MAPA */
-// const map = (tileType, rockIndex, posX, posY, width, height) => {
-// 	const tileType_ = tileType;
-// 	const rockTile = tileType_[rockIndex];
-// 	const rockX = posX;
-// 	const rockY = posY;
-// 	ctx.drawImage(tiles, rockTile.x, rockTile.y, rockTile.width, rockTile.height, rockX, rockY, width, height);
-// };
 
 const layout = () => {
 	// Suelo marrón cubre todo el canvas
@@ -316,8 +284,6 @@ let partTaken = false;
 const shipPart = (posX, posY) => {
 	const ship = new Image();
 	ship.src = ships[level].parts[sublevel].url;
-	// shipWidth = ships[level].parts[sublevel].width;
-	// shipHeight = ships[level].parts[sublevel].height;
 	const shipX = posX;
 	const shipY = posY;
 	if(!partTaken) {
@@ -419,7 +385,7 @@ function levelWin() {
 			}, 2000);
 
 		} else {
-			notifications.style.color = "#c40d24";
+			notifications.style.color = "#cf2e2e";
 			notifications.innerText = "No has obtenido la parte de la nave necesaria para superar este nivel.";
 
 			audio_not_win_yet.play();
@@ -440,14 +406,14 @@ function levelWin() {
 
 /* Personaje */
 
-// Hoja de imágenes del heroe
+// Hoja de imágenes del héroe
 let sprite = new Image();
 sprite.src = './assets/imgs/hero/astronauta-transformed.png';
 
 // Variable de indicador de frame
 let animationIndex = 0;
 
-// Variable objeto que guarda la ubicación de los frames de cada animación que se encuentra en la hoja de imagen del heroe
+// Variable objeto que guarda la ubicación de los frames de cada animación que se encuentra en la hoja de imagen del héroe
 const framesWalking = {
 	"right": {
 		"0": {
@@ -560,7 +526,7 @@ let positionX = 0;
 let positionY = canvasHeight - characterHeight;
 
 // Píxeles que se mueve el héroe por cada toque de tecla (combinar junto con la función setInterval que ejecuta a moveCharacter)
-const movePixels = 15; // 9
+const movePixels = 10; // 9
 
 // Superficies de colisión del héroe
 let characterCollisionsAreas = {
@@ -680,11 +646,6 @@ function moveUp() {
 
 	ctx.drawImage(framesEnemy2[animationIndexEnemy2], positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
 
-	// ctx.drawImage(framesEnemy2[animationIndexEnemy2], positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
-
-	// Renderizo a la bala
-	//ctx.drawImage(asteroid, xFixed, positionYenemyBullet, enemyBulletsWidth, enemyBulletsHeight);
-
 	collisionCheck();
 	collisionCheck2();
 	explosionsActivator();
@@ -734,10 +695,6 @@ function moveDown() {
 	}
 
 	ctx.drawImage(framesEnemy2[animationIndexEnemy2], positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
-
-
-	// Renderizo a la bala
-	//ctx.drawImage(asteroid, xFixed, positionYenemyBullet, enemyBulletsWidth, enemyBulletsHeight);
 
 	collisionCheck();
 	collisionCheck2();
@@ -790,10 +747,6 @@ function moveLeft() {
 
 	ctx.drawImage(framesEnemy2[animationIndexEnemy2], positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
 
-
-	// Renderizo a la bala
-	//ctx.drawImage(asteroid, xFixed, positionYenemyBullet, enemyBulletsWidth, enemyBulletsHeight);
-
 	collisionCheck();
 	collisionCheck2();
 	explosionsActivator();
@@ -841,9 +794,6 @@ function moveRight() {
 	}
 
 	ctx.drawImage(framesEnemy2[animationIndexEnemy2], positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
-
-	// Renderizo a la bala
-	//ctx.drawImage(asteroid, xFixed, positionYenemyBullet, enemyBulletsWidth, enemyBulletsHeight);
 
 	collisionCheck();
 	collisionCheck2();
@@ -1051,11 +1001,6 @@ function moveLeftEnemy() {
 
 		ctx.drawImage(framesEnemy2[animationIndexEnemy2], positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
 
-		// ctx.drawImage(framesEnemy2[animationIndexEnemy2], positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
-
-		// Renderizo a la bala
-		//ctx.drawImage(asteroid, xFixed, positionYenemyBullet, enemyBulletsWidth, enemyBulletsHeight);
-
 		collisionCheck();
 		collisionCheck2();
 		explosionsActivator();
@@ -1118,13 +1063,7 @@ function moveRightenemy() {
 		if(animationIndexEnemy2 >= 5) {
 			animationIndexEnemy2 = 0
 		}
-
 		ctx.drawImage(framesEnemy2[animationIndexEnemy2], positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
-
-		// ctx.drawImage(framesEnemy2[animationIndexEnemy2], positionXenemy2, positionYenemy2, enemyWidth2, enemyHeight2);
-
-		// Renderizo a la bala
-		// ctx.drawImage(asteroid, xFixed, positionYenemyBullet, enemyBulletsWidth, enemyBulletsHeight);
 
 		collisionCheck();
 		collisionCheck2();
@@ -1197,8 +1136,6 @@ function moveUpEnemy() {
 	levelWin();
 	buttonPress();
 
-	
-
 	if(positionYenemy2 > enemy2UpLimit && borderPosition2 == 'down') {
 		positionYenemy2 = positionYenemy2-movePixelsenemy2;
 
@@ -1230,9 +1167,6 @@ function moveUpEnemy() {
 		} else if(borderPosition == 'right') {
 			ctx.drawImage(framesEnemyLeft[animationIndexEnemy], positionXenemy, positionYenemy, enemyWidth, enemyHeight);
 		}
-
-		// Renderizo a la bala
-		//ctx.drawImage(asteroid, xFixed, positionYenemyBullet, enemyBulletsWidth, enemyBulletsHeight);
 
 		collisionCheck();
 		collisionCheck2();
@@ -1268,7 +1202,6 @@ function moveDownEnemy() {
 	levelWin();
 	buttonPress();
 
-	
 
 	if(positionYenemy2 < enemy2DownLimit - enemyHeight2 && borderPosition2 == 'up') {
 		positionYenemy2 = positionYenemy2+movePixelsenemy2;
@@ -1302,9 +1235,6 @@ function moveDownEnemy() {
 			ctx.drawImage(framesEnemyLeft[animationIndexEnemy], positionXenemy, positionYenemy, enemyWidth, enemyHeight);
 		}
 
-		// Renderizo a la bala
-		// ctx.drawImage(asteroid, xFixed, positionYenemyBullet, enemyBulletsWidth, enemyBulletsHeight);
-
 		collisionCheck();
 		collisionCheck2();
 		explosionsActivator();
@@ -1313,100 +1243,6 @@ function moveDownEnemy() {
 		moveUpEnemy();
 	}
 }
-
-
-/* Balas enemigo */
-// const asteroid = new Image();
-// asteroid.src = './assets/imgs/asteroids/Asteroid01-Base.png';
-
-// const enemyBulletsWidth = 70;
-// const enemyBulletsHeight = 70;
-// let positionXenemyBullet = 135;
-// const xFixed = 100;
-// let positionYenemyBullet = 0;
-
-
-// Píxeles que se mueve por cada toque de tecla
-//const movePixelsBullet = 10;
-
-
-// Función que mueve la bala hacia abajo
-// function bulletMoveDown() {
-// 	if(collision) {
-// 		return;
-// 	}
-
-// 	ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-
-// 	ctx.drawImage(asteroid, xFixed, positionYenemyBullet, enemyBulletsWidth, enemyBulletsHeight);
-
-// 	layout();
-// 	shipPart(posXship, posYship);
-
-// 	if(positionYenemyBullet < borders.lower_border.yfinal /*- enemyBulletsHeight*/) {
-// 		positionYenemyBullet = positionYenemyBullet+movePixelsBullet;
-
-// 		ctx.drawImage(asteroid, xFixed, positionYenemyBullet, enemyBulletsWidth, enemyBulletsHeight);
-
-// 		// Renderizo también al personaje
-// 		if(movingRight) {
-// 			ctx.drawImage(sprite, framesWalking["right"][animationIndex].x, framesWalking["right"][animationIndex].y, framesWalking["right"][animationIndex].width, framesWalking["right"][animationIndex].height, positionX, positionY, characterWidth, characterHeight);
-// 		} else if(movingUp) {
-// 			ctx.drawImage(sprite, framesWalking["up"][animationIndex].x, framesWalking["up"][animationIndex].y, framesWalking["up"][animationIndex].width, framesWalking["up"][animationIndex].height, positionX, positionY, characterWidth, characterHeight);
-// 		} else if(movingLeft) {
-// 			ctx.drawImage(sprite, framesWalking["left"][animationIndex].x, framesWalking["left"][animationIndex].y, framesWalking["left"][animationIndex].width, framesWalking["left"][animationIndex].height, positionX, positionY, characterWidth, characterHeight);
-// 		} else if(movingDown) {
-// 			ctx.drawImage(sprite, framesWalking["down"][animationIndex].x, framesWalking["down"][animationIndex].y, framesWalking["down"][animationIndex].width, framesWalking["down"][animationIndex].height, positionX, positionY, characterWidth, characterHeight);
-// 		} else {
-// 			ctx.drawImage(sprite, framesWalking["down"]["0"].x, framesWalking["down"]["0"].y, framesWalking["down"]["0"].width, framesWalking["down"]["0"].height, positionX, positionY, characterWidth, characterHeight);
-// 		}
-
-// 		// Renderizo también al enemigo en la posición que tiene
-// 		if(animationIndexEnemy >= 5) {
-// 			animationIndexEnemy = 0
-// 		}
-// 		if(borderPosition == 'left') {
-// 			ctx.drawImage(framesEnemy[animationIndexEnemy], positionXenemy, positionYenemy, enemyWidth, enemyHeight);
-// 		} else if(borderPosition == 'right') {
-// 			ctx.drawImage(framesEnemyLeft[animationIndexEnemy], positionXenemy, positionYenemy, enemyWidth, enemyHeight);
-// 		}
-// 		collisionCheck();
-// 	} else {
-// 		// Renderizo al personaje
-// 		if(movingRight) {
-// 			ctx.drawImage(sprite, framesWalking["right"][animationIndex].x, framesWalking["right"][animationIndex].y, framesWalking["right"][animationIndex].width, framesWalking["right"][animationIndex].height, positionX, positionY, characterWidth, characterHeight);
-// 		} else if(movingUp) {
-// 			ctx.drawImage(sprite, framesWalking["up"][animationIndex].x, framesWalking["up"][animationIndex].y, framesWalking["up"][animationIndex].width, framesWalking["up"][animationIndex].height, positionX, positionY, characterWidth, characterHeight);
-// 		} else if(movingLeft) {
-// 			ctx.drawImage(sprite, framesWalking["left"][animationIndex].x, framesWalking["left"][animationIndex].y, framesWalking["left"][animationIndex].width, framesWalking["left"][animationIndex].height, positionX, positionY, characterWidth, characterHeight);
-// 		} else if(movingDown) {
-// 			ctx.drawImage(sprite, framesWalking["down"][animationIndex].x, framesWalking["down"][animationIndex].y, framesWalking["down"][animationIndex].width, framesWalking["down"][animationIndex].height, positionX, positionY, characterWidth, characterHeight);
-// 		} else {
-// 			ctx.drawImage(sprite, framesWalking["down"]["0"].x, framesWalking["down"]["0"].y, framesWalking["down"]["0"].width, framesWalking["down"]["0"].height, positionX, positionY, characterWidth, characterHeight);
-// 		}
-
-// 		// Renderizo al enemigo en la posición que tiene
-// 		if(animationIndexEnemy >= 5) {
-// 			animationIndexEnemy = 0
-// 		}
-// 		if(borderPosition == 'left') {
-// 			ctx.drawImage(framesEnemy[animationIndexEnemy], positionXenemy, positionYenemy, enemyWidth, enemyHeight);
-// 		} else if(borderPosition == 'right') {
-// 			ctx.drawImage(framesEnemyLeft[animationIndexEnemy], positionXenemy, positionYenemy, enemyWidth, enemyHeight);
-// 		}
-// 		collisionCheck();
-// 		setTimeout( ()=>{
-// 			positionYenemyBullet = -70;
-
-// 		}, 800)
-// 	}
-// }
-
-// Renderizar Bala
-// const renderBullet = (timeIntervalBullet) => {
-// 			setInterval(bulletMoveDown,timeIntervalBullet);
-// 			console.log(timeIntervalBullet);
-// };
 
  /* COLISIONES */
 let collision = false;
@@ -1423,7 +1259,7 @@ function collisionCheck() {
 			audio_background.currentTime = 0;
 
 			const notifications = document.getElementById('notifications');
-			notifications.style.color = "#c40d24";
+			notifications.style.color = "#cf2e2e";
 			notifications.innerText = "¡Capturado por un alienígena! ¡Vuelve a intentarlo!";
 
 			// Reproducir sonido cuando colisiona con elenemigo
@@ -1440,7 +1276,7 @@ function collisionCheck() {
 
 				notifications.innerText = "";
 
-				// Reiniciar heroe
+				// Reiniciar héroe
 				animationIndex = 0;
 				if(sublevel == 0) {
 					positionX = 0;
@@ -1457,22 +1293,7 @@ function collisionCheck() {
 					positionXenemy2 = 300;
 					positionYenemy2 = 0;
 					borderPosition2 = 'up';
-				} /*else if(sublevel == 1) {
-					positionX = canvasWidth-60;
-					positionY = 10;
-				}*/
-
-				// Reiniciar enemigo
-				// animationIndexEnemy = 0;
-				// positionXenemy = 200;
-				// positionYenemy = 518;
-				// borderPosition = 'left';
-
-				// Reiniciar enemigo 2
-				// animationIndexEnemy2 = 0;
-				// positionXenemy2 = 300;
-				// positionYenemy2 = 0;
-				// borderPosition2 = 'up';
+				}
 
 				// Reinicio la parte de la nave en el mapa
 				partTaken = false;
@@ -1491,9 +1312,6 @@ function collisionCheck() {
 				}
 
 				audio_active= false;
-				// Reinicar bala
-				// positionXenemyBullet = undefined;
-				//positionYenemyBullet = 0;
 
 				// Reinicar juego
 				if(sublevel == 0) {
@@ -1534,7 +1352,7 @@ function collisionCheck2() {
 			audio_collision.currentTime = 0;
 
 			const notifications = document.getElementById('notifications');
-			notifications.style.color = "#c40d24";
+			notifications.style.color = "#cf2e2e";
 			notifications.innerText = "¡Capturado por un alienígena! ¡Vuelve a intentarlo!";
 
 			// Espera 3 segundos para reinicair juego
@@ -1549,7 +1367,7 @@ function collisionCheck2() {
 					positionX = 0;
 					positionY = canvasHeight - characterHeight;
 
-						// Reiniciar enemigo
+					// Reiniciar enemigo
 					animationIndexEnemy = 0;
 					positionXenemy = 200;
 					positionYenemy = 518;
@@ -1560,22 +1378,7 @@ function collisionCheck2() {
 					positionXenemy2 = 300;
 					positionYenemy2 = 0;
 					borderPosition2 = 'up';
-				} /*else if(sublevel == 1) {
-					positionX = canvasWidth-60;
-					positionY = 10;
-				}*/
-
-				// Reiniciar enemigo
-				// animationIndexEnemy = 0;
-				// positionXenemy = 200;
-				// positionYenemy = 518;
-				// borderPosition = 'left';
-
-				// Reiniciar enemigo 2
-				// animationIndexEnemy2 = 0;
-				// positionXenemy2 = 300;
-				// positionYenemy2 = 0;
-				// borderPosition2 = 'up';
+				}
 
 				// Reinicio la parte de la nave en el mapa
 				partTaken = false;
@@ -1594,10 +1397,6 @@ function collisionCheck2() {
 				}
 
 				audio_active= false;
-
-				// Reinicar bala
-				// positionXenemyBullet = undefined;
-				//positionYenemyBullet = 0;
 
 				// Reinicar juego
 				if(sublevel == 0) {
@@ -1635,7 +1434,7 @@ function startGame(timeIntervalHeroe, timeIntervalEnemy1, timeIntervalEnemy2) {
 		audio_active = true;
 		audio_background.play();
 		audio_background.loop = true;
-		audio_background.volume = 0.2;
+		audio_background.volume = 0.3;
 	}
 	// Renderizar mapa
 	layout();
@@ -1678,7 +1477,7 @@ start_button.addEventListener('click', ()=> {
 	collision2 = false;
 	sublevel = 0;
 
-	// Reiniciar heroe
+	// Reiniciar héroe
 	animationIndex = 0;
 	positionX = 0;
 	positionY = canvasHeight - characterHeight;
@@ -1884,7 +1683,7 @@ function startLevel2(timeIntervalHeroe, timeIntervalEnemy1, timeIntervalEnemy2) 
         audio_active = true;
         audio_background.play();
         audio_background.loop = true;
-        audio_background.volume = 0.2;
+        audio_background.volume = 0.3;
     }
     // Renderizar mapa
     layout2();
@@ -1896,8 +1695,6 @@ function startLevel2(timeIntervalHeroe, timeIntervalEnemy1, timeIntervalEnemy2) 
 
     // Renderizar Héroe
     animationIndex = 0;
-    // positionX = canvasWidth-characterWidth;
-    // positionY = 10;
 
 	ctx.drawImage(sprite, framesWalking["down"][animationIndex].x, framesWalking["down"][animationIndex].y, framesWalking["down"][animationIndex].width, framesWalking["down"][animationIndex].height, positionX, positionY, characterWidth, characterHeight);
 
@@ -1993,7 +1790,7 @@ function explosionsActivator() {
 			audio_explosion.currentTime = 0;
 
 			const notifications = document.getElementById('notifications');
-			notifications.style.color = "#c40d24";
+			notifications.style.color = "#cf2e2e";
 			notifications.innerText = "¡Has pisado una mina! ¡Vuelve a intentarlo!";
 			setTimeout(()=>{
 				notifications.innerText = "";
@@ -2146,7 +1943,6 @@ const layout3 = () => {
 
 // Array con la información de todas las paredes del nivel 3
 const walls3 = [
-	// Horizontales
 	wall_h1 = {
 		x: 0,
 		y: 80,
@@ -2287,7 +2083,7 @@ function startLevel3(timeIntervalHeroe, timeIntervalEnemy1, timeIntervalEnemy2) 
         audio_active = true;
         audio_background.play();
         audio_background.loop = true;
-        audio_background.volume = 0.2;
+        audio_background.volume = 0.3;
     }
     // Renderizar mapa
     layout3();
@@ -2302,8 +2098,6 @@ function startLevel3(timeIntervalHeroe, timeIntervalEnemy1, timeIntervalEnemy2) 
 
     // Renderizar Héroe
     animationIndex = 0;
-    // positionX = 10;
-    // positionY = 10;
 
 	ctx.drawImage(sprite, framesWalking["down"][animationIndex].x, framesWalking["down"][animationIndex].y, framesWalking["down"][animationIndex].width, framesWalking["down"][animationIndex].height, positionX, positionY, characterWidth, characterHeight);
 
@@ -2345,7 +2139,9 @@ function startLevel3(timeIntervalHeroe, timeIntervalEnemy1, timeIntervalEnemy2) 
 }
 
 /* FINAL DEL JUEGO */
-let planet1Untervale;
+let planet1Intervale;
+let planet2Intervale;
+let planet3Intervale;
 
 // Audio final
 const endingAudio = new Audio();
@@ -2360,7 +2156,7 @@ function finishGame() {
 	// Activa múscica final
 	endingAudio.play();
 	endingAudio.loop = true;
-	endingAudio.volume = 0.8;
+	endingAudio.volume = 0.6;
 
 	// Quita nombre de clase del contenedor que tiene el logo de planeta geek
 	const canvasContainer = document.getElementById("canvas_container");
@@ -2382,13 +2178,17 @@ function finishGame() {
 	ctx.drawImage(exhaustAnimationArray[exhaustAnimationIndex], exhaustX, exhaustY, exhaustX, exhaustY);
 	setInterval(exhaustAnimation, 100);
 
-	// Renderizo el planeta
+	// Renderizo el planeta 1
 	ctx.drawImage(planet1, xPlanet1, yPlanet1, planet1Width, planet1Height);
-	planet1Untervale = setInterval(planet1Moving, 100);
+	planet1Intervale = setInterval(planet1Moving, 100);
 
-	if(xPlanet1 < -100) {
-		clearInterval(planet1Untervale);
-	}
+	// Renderizo el planeta 2
+	ctx.drawImage(planet2, xPlanet2, yPlanet2, planet2Width, planet2Height);
+	planet2Intervale = setInterval(planet2Moving, 100);
+
+	// Renederizo al planeta 3
+	ctx.drawImage(planet3, xPlanet3, yPlanet3, planet3Width, planet3Height);
+	planet3Intervale = setInterval(planet3Moving, 100);
 }
 
 const final_message = document.getElementById("final_message");
@@ -2428,15 +2228,17 @@ let exhaustY = yCompleteShip + heightCompleteShip/2 - exhaustHeight/2;
 function exhaustAnimation() {
 	ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
-	if(xPlanet1 < -100) {
-		clearInterval(planet1Untervale);
-	}
-
 	// Renderizo la nave
 	ctx.drawImage(completeShip, xCompleteShip, yCompleteShip, widthCompleteShip, heightCompleteShip);
 
-	// Renederizo al planeta
+	// Renederizo al planeta 1
 	ctx.drawImage(planet1, xPlanet1, yPlanet1, planet1Width, planet1Height);
+
+	// Renederizo al planeta 2
+	ctx.drawImage(planet2, xPlanet2, yPlanet2, planet2Width, planet2Height);
+
+	// Renederizo al planeta 3
+	ctx.drawImage(planet3, xPlanet3, yPlanet3, planet3Width, planet3Height);
 
 	// Animo el fuego
 	exhaustAnimationIndex++
@@ -2446,6 +2248,7 @@ function exhaustAnimation() {
 	ctx.drawImage(exhaustAnimationArray[exhaustAnimationIndex], exhaustX, exhaustY, exhaustWidth, exhaustHeight);
 }
 
+// Planeta 1
 const planet1 = new Image();
 planet1.src = "../assets/imgs/planets/Airless_01-512x512.png";
 
@@ -2455,7 +2258,7 @@ let yPlanet1 = 200;
 let planet1Width = 100;
 let planet1Height = 100;
 
-let planet1MovingPixels = 10;
+let planet1MovingPixels = 9;
 
 function planet1Moving() {
 	ctx.clearRect(0, 0, canvasWidth, canvasHeight);
@@ -2465,10 +2268,96 @@ function planet1Moving() {
 
 	// Renderizo el fuego
 	ctx.drawImage(exhaustAnimationArray[exhaustAnimationIndex], exhaustX, exhaustY, exhaustWidth, exhaustHeight);
+
+	// Renederizo al planeta 2
+	ctx.drawImage(planet2, xPlanet2, yPlanet2, planet2Width, planet2Height);
+
+	// Renederizo al planeta 3
+	ctx.drawImage(planet3, xPlanet3, yPlanet3, planet3Width, planet3Height);
 	
 	// Animo el planeta
 	xPlanet1 = xPlanet1 - planet1MovingPixels;
 	console.log(xPlanet1);
 
 	ctx.drawImage(planet1, xPlanet1, yPlanet1, planet1Width, planet1Height);
+
+	if(xPlanet1 < -1000) {
+		xPlanet1 = 750;
+	}
+}
+
+// Planeta 2
+const planet2 = new Image();
+planet2.src = "../assets/imgs/planets/Magma_01-512x512.png";
+
+let xPlanet2 = 1500;
+let yPlanet2 = 500;
+
+let planet2Width = 50;
+let planet2Height = 50;
+
+let planet2MovingPixels = 5;
+
+function planet2Moving() {
+	ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+
+	// Renderizo la nave
+	ctx.drawImage(completeShip, xCompleteShip, yCompleteShip, widthCompleteShip, heightCompleteShip);
+
+	// Renderizo el fuego
+	ctx.drawImage(exhaustAnimationArray[exhaustAnimationIndex], exhaustX, exhaustY, exhaustWidth, exhaustHeight);
+
+	// Renederizo al planeta 1
+	ctx.drawImage(planet1, xPlanet1, yPlanet1, planet1Width, planet1Height);
+
+	// Renederizo al planeta 3
+	ctx.drawImage(planet3, xPlanet3, yPlanet3, planet3Width, planet3Height);
+	
+	// Animo el planeta
+	xPlanet2 = xPlanet2 - planet2MovingPixels;
+	console.log(xPlanet2);
+
+	ctx.drawImage(planet2, xPlanet2, yPlanet2, planet2Width, planet2Height);
+
+	if(xPlanet2 < -200) {
+		xPlanet2 = 1500;
+	}
+}
+
+// Planeta 3
+const planet3 = new Image();
+planet3.src = "../assets/imgs/planets/Ocean_01-512x512.png";
+
+let xPlanet3 = 2000;
+let yPlanet3 = 5;
+
+let planet3Width = 150;
+let planet3Height = 150;
+
+let planet3MovingPixels = 12;
+
+function planet3Moving() {
+	ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+
+	// Renderizo la nave
+	ctx.drawImage(completeShip, xCompleteShip, yCompleteShip, widthCompleteShip, heightCompleteShip);
+
+	// Renderizo el fuego
+	ctx.drawImage(exhaustAnimationArray[exhaustAnimationIndex], exhaustX, exhaustY, exhaustWidth, exhaustHeight);
+
+	// Renederizo al planeta 1
+	ctx.drawImage(planet1, xPlanet1, yPlanet1, planet1Width, planet1Height);
+
+	// Renederizo al planeta 2
+	ctx.drawImage(planet2, xPlanet2, yPlanet2, planet2Width, planet2Height);
+	
+	// Animo el planeta
+	xPlanet3 = xPlanet3 - planet3MovingPixels;
+	console.log(xPlanet3);
+
+	ctx.drawImage(planet3, xPlanet3, yPlanet3, planet3Width, planet3Height);
+
+	if(xPlanet3 < -1000) {
+		xPlanet3 = 2000;
+	}
 }

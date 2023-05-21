@@ -59,13 +59,16 @@ main {
 }
 
 .canvas-container {
-    position: relative;
+    /* position: relative;
     text-align: center;
-    padding: 0.8rem;
+    padding: 0.8rem; */
+    width: 30rem;
     background-image: url('../assets/imgs/backgrounds/logo.png');
     background-position: center;
     background-repeat: no-repeat;
-    overflow: hidden;
+    /* overflow: hidden; */
+    background-size: contain;
+    margin: auto;
 }
 
 .backup {
@@ -75,7 +78,7 @@ main {
 }
 
 #final_message{
-    width: 60rem;
+    width: 65rem;
     position: absolute;
     /* font-family: superMarioBros; */
     letter-spacing: 0.1rem;
@@ -113,11 +116,12 @@ canvas {
 .videogame-word {
     position: absolute;
     font-family: superMarioBros;
-    width: 70rem;
-    font-size: 4rem;
+    width: 30rem;
+    /* width: 70rem; */
+    font-size: var(--ss);
     color: var(--white);
     top: 75%;
-    left: calc(50% - 35rem);
+    left: calc(50% - 15rem);
     z-index: 1;
 }
 
@@ -139,7 +143,8 @@ canvas {
 .history-container, .game-info {
     width: 30rem;
     margin: 0 auto;
-    max-height: 45rem;
+    /* min-height: 45rem; */
+    height: auto;
     border: 0.2rem solid var(--planeta-geek-celeste);
     border-radius: 0.5rem;
     margin-top: 1rem;
@@ -157,6 +162,16 @@ canvas {
 .history-container .start-btn__container {
     text-align: center;
     margin-top: 2rem;
+}
+
+.start-btn__container {
+    display: none;
+}
+
+.size-notification {
+    display: block;
+    color: var(--vivid-red);
+    text-align: center;
 }
 
 #start_btn {
@@ -177,6 +192,7 @@ canvas {
 
 .game-info {
     min-height: 25rem;
+    margin-bottom: 4rem;
 }
 
 .game-info p {

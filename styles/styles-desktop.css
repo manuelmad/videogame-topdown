@@ -3,13 +3,31 @@
     justify-content: space-evenly;
 }
 
+/* .canvas-container {
+    width: 70rem;
+    background-image: url('../assets/imgs/backgrounds/logo.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+} */
+
+.videogame-word {
+    width: 70rem;
+    font-size: 4rem;
+    left: calc(50% - 35rem);
+}
+
 .history-container,.game-info {
     max-height: 50rem;
-    width: 50rem;
+    max-width: 50rem;
     font-size: var(--lg);
 }
 
 .game-info_container {
     display: flex;
     align-items: center;
+}
+
+.game-info {
+    margin-bottom: 0;
 }

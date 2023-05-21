@@ -80,18 +80,6 @@ const capsuleSprites = {
   }
 };
 
-const cannon = new Image();
-cannon.src= '../assets/imgs/cannon/Cannon-left.png';
-
-const cannonSprites = {
-  "0": {
-    x: 0,
-    y: 0,
-    width: 252,
-    height: 139
-  }
-};
-
 const button = new Image();
 button.src= '../assets/imgs/button/arcade_button.png';
 
@@ -230,80 +218,80 @@ const explosionTiles = {
   }
 };
 
-const electricFenceSprite = new Image();
-electricFenceSprite.src = '../assets/imgs/backgrounds/electric_fence_sprite_sheet.png';
+// const electricFenceSprite = new Image();
+// electricFenceSprite.src = '../assets/imgs/backgrounds/electric_fence_sprite_sheet.png';
 
-const electricFenceTiles = {
-  "0": {
-    x: 0,
-    y: 0,
-    width: 96,
-    height: 96
-  },
-  "1": {
-    x: 96,
-    y: 0,
-    width: 96,
-    height: 96
-  },
-  "2": {
-    x: 192,
-    y: 0,
-    width: 96,
-    height: 96
-  },
-  "3": {
-    x: 288,
-    y: 0,
-    width: 96,
-    height: 96
-  },
-  "4": {
-    x: 384,
-    y: 0,
-    width: 96,
-    height: 96
-  },
-  "5": {
-    x: 480,
-    y: 0,
-    width: 96,
-    height: 96
-  },
-  "6": {
-    x: 576,
-    y: 0,
-    width: 96,
-    height: 96
-  },
-  "7": {
-    x: 672,
-    y: 0,
-    width: 96,
-    height: 96
-  },
-  "8": {
-    x: 768,
-    y: 0,
-    width: 96,
-    height: 96
-  },
-  "9": {
-    x: 864,
-    y: 0,
-    width: 96,
-    height: 96
-  },
-  "10": {
-    x: 960,
-    y: 0,
-    width: 96,
-    height: 96
-  },
-  "11": {
-    x: 1056,
-    y: 0,
-    width: 96,
-    height: 96
-  }
-};
+// const electricFenceTiles = {
+//   "0": {
+//     x: 0,
+//     y: 0,
+//     width: 96,
+//     height: 96
+//   },
+//   "1": {
+//     x: 96,
+//     y: 0,
+//     width: 96,
+//     height: 96
+//   },
+//   "2": {
+//     x: 192,
+//     y: 0,
+//     width: 96,
+//     height: 96
+//   },
+//   "3": {
+//     x: 288,
+//     y: 0,
+//     width: 96,
+//     height: 96
+//   },
+//   "4": {
+//     x: 384,
+//     y: 0,
+//     width: 96,
+//     height: 96
+//   },
+//   "5": {
+//     x: 480,
+//     y: 0,
+//     width: 96,
+//     height: 96
+//   },
+//   "6": {
+//     x: 576,
+//     y: 0,
+//     width: 96,
+//     height: 96
+//   },
+//   "7": {
+//     x: 672,
+//     y: 0,
+//     width: 96,
+//     height: 96
+//   },
+//   "8": {
+//     x: 768,
+//     y: 0,
+//     width: 96,
+//     height: 96
+//   },
+//   "9": {
+//     x: 864,
+//     y: 0,
+//     width: 96,
+//     height: 96
+//   },
+//   "10": {
+//     x: 960,
+//     y: 0,
+//     width: 96,
+//     height: 96
+//   },
+//   "11": {
+//     x: 1056,
+//     y: 0,
+//     width: 96,
+//     height: 96
+//   }
+// };

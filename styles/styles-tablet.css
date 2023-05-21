@@ -1,4 +1,20 @@
-.history-container {
+.canvas-container {
+    width: 70rem;
+    background-image: url('../assets/imgs/backgrounds/logo.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+
+.history-container, .game-info {
     width: 65rem;
     font-size: var(--md);
+}
+
+.start-btn__container {
+    display: block;
+}
+
+.size-notification {
+    display: none;
 }
